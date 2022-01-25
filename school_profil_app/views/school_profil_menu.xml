@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- LE Menu des profils de établissementse  -->
+    <menuitem id="school_profil_menu"
+        name="Schools Profil" />
+    <!-- Action  pour ouvrir la liste des profils de établissements -->
+    <act_window id="action_school_profil"
+    name="Gestion des profils des écoles"
+    res_model="school.profil"
+    view_mode="tree,form"
+    />  
+    <!-- L'Option du Menu pour ouvrir la liste des profils de établissements -->
+    <menuitem id="menu_school_profil"
+    name="Profil des écoles"
+    parent="school_profil_menu"
+        action="action_school_profil"
+    /> 
+ </odoo>

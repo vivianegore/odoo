@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_profil_user,SchoolProfilUser,model_school_profil,profil_group_user,1,1,1,1
+access_profil_manager,SchoolProfilManager,model_school_profil,profil_group_manager,1,1,1,1
+
