@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+<!--  vues pour Tag-->  
+    <!-- modèle de la vue List -->
+    <record id="tag_list_view" model="ir.ui.view">
+        <field name="name">Tag list </field>
+        <field name="model">estate.tag</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/> 
+            </tree>
+        </field>
+    </record>
+
+        <!-- modèle de la vue Form -->
+    <record id="tag_form_view" model="ir.ui.view">
+        <field name="name">Tag Form </field>
+        <field name="model">estate.tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>  
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
