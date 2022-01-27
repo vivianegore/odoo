@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo>
+<!--  vues pour Offres-->  
+    <!-- modèle de la vue List -->
+    <record id="offer_list_view" model="ir.ui.view">
+        <field name="name">Offer list </field>
+        <field name="model">property.offer</field>
+        <field name="arch" type="xml">
+            <tree>  
+                <field name="prix"/>  
+                <field name="statut"/>  
+                <field name="partner_id"/>  
+            </tree>
+        </field>
+    </record>
+
+        <!-- modèle de la vue Form -->
+    <record id="offer_form_view" model="ir.ui.view">
+        <field name="name">Offer Form </field>
+        <field name="model">property.offer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="prix"/>  
+                        <field name="statut"/>  
+                        <field name="partner_id"/>   
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+<!--  vues pour Salle -->  
+    <!-- modèle de la vue List -->
+    <record id="type_list_view" model="ir.ui.view">
+        <field name="name">Types list </field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="name"/>
+                <field name="property_type"/>   
+            </tree>
+        </field>
+    </record>
+
+        <!-- modèle de la vue Form -->
+    <record id="type_form_view" model="ir.ui.view">
+        <field name="name">Types Form </field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form >
+               <!--  <header>
+                    <button name="action_annulé" type="object" string="Annulé"/>
+                    <button name="action_vendu" type="object" string="Vendu"/>
+                </header> -->
+                <sheet>
+                    <group>
+                        
+                        <field name="name"/>
+                        <field name="property_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

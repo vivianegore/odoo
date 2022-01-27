@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+  <!-- action pour  les Propriétés -->
+  <record id="action_propriete" model="ir.actions.act_window">
+    <field name="name">Propriétés</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">agence.bureau</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+ 
+  <!-- Le Menu principal dans le Home menu de odoo: Annonces immobilières -->
+  <menuitem id="menuprinc_estate" name="Annonces immobilières"/>
+
+  <menuitem id="smenu_publicite" name="Publicités" parent="menuprinc_estate" />
+  
+  <menuitem id="smenus_propriete" name="Propriétés" parent="smenu_publicite" action="action_propriete" />
+
+  
+
+</odoo>

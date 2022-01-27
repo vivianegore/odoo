@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_type_user,TypeUser,model_estate_property_type,agence_group_user,1,0,0,0
+access_type_manager,TypeManager,model_estate_property_type,agence_group_manager,1,1,1,1
+
+access_bureau_user,BureauUser,model_agence_bureau,agence_group_user,1,0,0,0
+access_bureau_manager,BureauManager,model_agence_bureau,agence_group_manager,1,1,1,1
+
+access_tag_user,TagUser,model_estate_tag,agence_group_user,1,0,0,0
+access_tag_manager,TagManager,model_estate_tag,agence_group_manager,1,1,1,1
+
+access_offer_user,OfferUser,model_property_offer,agence_group_user,1,0,0,0
+access_offer_manager,OfferManager,model_property_offer,agence_group_manager,1,1,1,1

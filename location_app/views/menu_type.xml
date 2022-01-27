@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="menuprinc_estate" name="Annonces immobilières"/>
+    <!-- action pour  les types de Propriétés -->
+    <record id="action_type_propriete" model="ir.actions.act_window">
+        <field name="name">Types de propriétés</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="smenu_parametre" name="Paramètres" parent="menuprinc_estate" />
+    
+    <menuitem id="smenus_type" name="Types de propriétés" parent="smenu_parametre" action="action_type_propriete" />
+
+    <!-- action pour  les tags de Propriétés -->
+    <record id="action_tag_propriete" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">estate.tag</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem id="smenus_tag" name="Tags de propriétés" parent="smenu_parametre" action="action_tag_propriete" />
+</odoo>
