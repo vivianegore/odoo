@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_assurance_user,AssuranceUser,model_assurance_assurfaz,assurfaz_group_user,1,0,0,0
+access_assurance_manager,AssuranceManager,model_assurance_assurfaz,assurfaz_group_manager,1,1,1,1
+
+access_assurance_auto_user,AssuranceAutoUser,model_assurfaz_auto,assurfaz_group_user,1,0,0,0
+access_assurance_auto_manager,AssuranceAutoManager,model_assurfaz_auto,assurfaz_group_manager,1,1,1,1
+
+access_assurance_auto_vehicule_user,AssuranceAutoVehiculeUser,model_assurfaz_auto_vehicule,assurfaz_group_user,1,0,0,0
+access_assurance_auto_vehicule_manager,AssuranceAutoVehiculeManager,model_assurfaz_auto_vehicule,assurfaz_group_manager,1,1,1,1
+
+access_assurance_auto_garantie_user,AssuranceAutoGarantieUser,model_assurfaz_auto_garantie,assurfaz_group_user,1,0,0,0
+access_assurance_auto_garantie_manager,AssuranceAutoGarantieManager,model_assurfaz_auto_garantie,assurfaz_group_manager,1,1,1,1
+
+
+

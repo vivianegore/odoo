@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_auto_garantie_view_list" model="ir.ui.view">
+        <field name="name">assurance.auto.garantie.list </field>
+        <field name="model">assurfaz.auto.garantie</field>
+        <field name="arch" type="xml">
+            <tree >    
+                <field name="garantie" string="Garantie"/>  
+                <field name="pack_list" string="Liste de packs"/>  
+                <field name="garantie_list" string="Liste de garantie"/>       
+            </tree>
+        </field>
+    </record>
+
+    <!-- modèle de la vue Form -->
+    <record id="assurance_auto_garantie_view_form" model="ir.ui.view">
+        <field name="name">assurance.auto.garantie.form</field>
+        <field name="model">assurfaz.auto.garantie</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="garantie"/>  
+                        <field name="pack_list" attrs="{'invisible': [('garantie', '=', 'carte')]}"/>  
+                        <field name="garantie_list" attrs="{'invisible': [('garantie', '=', 'pack')]}"/>  
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
