@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_habitation_view_list" model="ir.ui.view">
+        <field name="name">assurance.habitation.list </field>
+        <field name="model">assurfaz.habitation</field>
+        <field name="arch" type="xml">
+            <tree  >    
+               <field name="type_logement" />
+                <field name="valeur_garantie"/>   
+                <field name="valeur_batiment"/> 
+                       
+            </tree>
+        </field>
+    </record>
+
+    <!-- modèle de la vue Form -->
+     <record id="assurance_habitation_view_form" model="ir.ui.view">
+        <field name="name">assurance.habitation.form</field>
+        <field name="model">assurfaz.habitation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Nouvelle,Reçue,Acceptee,Vendue" attrs="{'required': True}" />
+                </header>
+                <sheet>
+                    <div>
+                        <group>
+                            <group>
+                                <field name="type_logement"  widget="radio" required="1"/>
+                            </group>
+                            
+                        </group>
+                    </div><br/>
+                    
+                    <group string="Période de couverture">
+                        <div>
+                            <group>
+                                <group>
+                                    <field name="duree_garantie" required="1"/> 
+                                    <field name="date_effet" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="date_echeance" /> 
+                                </group><br/>
+                            </group>
+                        </div>
+                    </group>
+                    <notebook>
+                        <page string="Logement">
+                            <div>
+                                <group>
+                                    <group string="Détails du logement ">
+                                        <field name="type_toiture"/>
+                                        <field name="environnement_immediat"/> 
+                                        <field name="adresse"/>
+                                    </group>
+                                    <group string="Superficie et Nombre de pièces">  
+                                        <field name="surface"/>   
+                                        <field name="nb_piece"/> 
+                                    </group>
+                                    <group string="Propriétaire/Locataire ">
+                                        <field name="occupant"/>   
+                                        <field name="loyer_locataire" attrs="{'invisible': [('occupant', '=', 'locataire')]}"/>
+                                    </group>
+                                    <group string="Valeur">  
+                                        <field name="valeur_garantie"/>   
+                                        <field name="valeur_batiment"/>
+                                    </group>
+                                </group>
+                            </div>
+                        </page> 
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+</odoo>

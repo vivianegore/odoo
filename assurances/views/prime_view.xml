@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_prime_view_list" model="ir.ui.view">
+        <field name="name">assurance.prime.list </field>
+        <field name="model">assurfaz.prime</field>
+        <field name="arch" type="xml">
+            <tree  >    
+                <field name="name" />  
+                       
+            </tree>
+        </field>
+    </record>
+
+    <!-- modèle de la vue Form -->
+     <record id="assurance_prime_view_form" model="ir.ui.view">
+        <field name="name">assurance.prime.form</field>
+        <field name="model">assurfaz.prime</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/> 
+                            
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+</odoo>
