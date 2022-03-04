@@ -40,12 +40,11 @@ class AssuranceAuto(models.Model):
         string= 'Vous souhaitez une assurance pour ',
         default='vehicule'
     )
-    state = fields.Selection([('Nouvelle','Nouvelle'),
-        ('Reçue','Reçue'),
-        ('Acceptee','Acceptée'),
-        ('Vendue','Vendue'),
-        ('Annulee','Annulée')],
-        default='Nouvelle'
+    state = fields.Selection([('nouvelle','Nouvelle'),
+        ('validee','Validée'),
+        ('acceptee','Acceptée'),
+        ('refusee','Refusée')],
+        default='nouvelle'
     )
     #periode de couverture
     duree_garantie= fields.Integer('Durée de la garantie en mois')
@@ -55,6 +54,8 @@ class AssuranceAuto(models.Model):
 
     garantie_ids = fields.One2many('assurfaz.auto.garantie',"assurance_auto_id")
     vehicule_ids = fields.One2many('assurfaz.auto.vehicule',"assurance_auto_id")
+
+    carte_grise = fields.Binary(string="Carte grise")
     
 
 

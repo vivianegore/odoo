@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml"> 
+                 
+                    
+                <xpath expr="//notebook" position="before">
+                     <div>
+                          <group string="Assurance">
+                                
+                                <field name="statut" />
+                                <field name="produit_assurance"/>
+                            </group>
+                        </div>    
+                </xpath>     
+
+                
+           
+            
+        </field>
+    </record>
+
+</odoo>

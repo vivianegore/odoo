@@ -37,12 +37,11 @@ class AssuranceHabitation(models.Model):
         string= 'Choix assureurs',
         default='amsa'
     )
-    state = fields.Selection([('Nouvelle','Nouvelle'),
-        ('Reçue','Reçue'),
-        ('Acceptee','Acceptée'),
-        ('Vendue','Vendue'),
-        ('Annulee','Annulée')],
-        default='Nouvelle'
+    state = fields.Selection([('nouvelle','Nouvelle'),
+        ('validee','Validée'),
+        ('acceptee','Acceptée'),
+        ('refusee','Refusée')],
+        default='nouvelle'
     )
 
     #Propriétaire/Locataire 

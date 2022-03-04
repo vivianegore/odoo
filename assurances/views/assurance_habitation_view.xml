@@ -6,9 +6,10 @@
         <field name="model">assurfaz.habitation</field>
         <field name="arch" type="xml">
             <tree  >    
-               <field name="type_logement" />
+                <field name="occupant"/> 
                 <field name="valeur_garantie"/>   
                 <field name="valeur_batiment"/> 
+                <field name="date_echeance"/> 
                        
             </tree>
         </field>
@@ -21,17 +22,13 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Nouvelle,Reçue,Acceptee,Vendue" attrs="{'required': True}" />
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="nouvelle,validee,acceptee,refusee" attrs="{'required': True}" />
                 </header>
                 <sheet>
-                    <div>
-                        <group>
-                            <group>
-                                <field name="type_logement"  widget="radio" required="1"/>
-                            </group>
-                            
-                        </group>
-                    </div><br/>
+                        
+                    <group>
+                        <field name="type_logement" required="1"/>
+                    </group> <br/>
                     
                     <group string="Période de couverture">
                         <div>

@@ -12,3 +12,6 @@ from . import assurance_habitation
 from . import assurance_sante
 from . import assurance_voyage
 from . import assurance_vie
+from . import vente
+from . import facturation
+from . import res_partner

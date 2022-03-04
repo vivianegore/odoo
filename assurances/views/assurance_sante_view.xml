@@ -18,6 +18,9 @@
         <field name="model">assurfaz.sante</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="nouvelle,validee,acceptee,refusee" attrs="{'required': True}" />
+                </header>
                 <sheet>
                     <group>
                         <field name="name" required="1"/> 

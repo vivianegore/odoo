@@ -7,3 +7,9 @@ class AssuranceSante(models.Model):
   
 
     name = fields.Char('Nom')
+    state = fields.Selection([('nouvelle','Nouvelle'),
+        ('validee','Validée'),
+        ('acceptee','Acceptée'),
+        ('refusee','Refusée')],
+        default='nouvelle'
+    )

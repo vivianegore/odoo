@@ -7,9 +7,10 @@ class AssuranceVie(models.Model):
   
 
     name = fields.Char('Nom')
-    demande_type= fields.Selection([('vousmeme','Vous faites une demande pour vous même en tant que bénéficiaire et éventuellement pour d\'autres personnes'),
-        ('tiers','Vous faites une demande pour le compte d\'un tiers bénéficiaire')],
-        string= 'Quelle est votre demande? ',
-        default='tiers'
+    state = fields.Selection([('nouvelle','Nouvelle'),
+        ('validee','Validée'),
+        ('acceptee','Acceptée'),
+        ('refusee','Refusée')],
+        default='nouvelle'
     )
     
