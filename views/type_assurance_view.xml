@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_type_assurance_view_list" model="ir.ui.view">
+        <field name="name">assurance.type_assurance.list </field>
+        <field name="model">assurfaz.typeassurance</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" >    
+                <field name="type_assurance"  />  
+                       
+            </tree>
+        </field>
+    </record>
+ 
+</odoo>

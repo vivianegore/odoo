@@ -1,0 +1,1105 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_sinistre_view_list" model="ir.ui.view">
+        <field name="name">assurance.sinistre.list </field>
+        <field name="model">assurfaz.sinistre</field>
+        <field name="arch" type="xml">
+            <tree  >
+                <field name="type_client"  />      
+                <!-- <field name="type_sinistre " /> 
+                <field name="type_sinistre " /> 
+                <field name="type_sinistre " />        -->
+            </tree>
+        </field>
+    </record>
+
+    <!-- modèle de la vue Form -->
+    <record id="assurance_sinistre_view_form" model="ir.ui.view">
+        <field name="name">assurance.sinistre.form</field>
+        <field name="model">assurfaz.sinistre</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="type_client" class="o_light_label"  widget="radio"/>
+                        <field name="type_sinistre_entreprise" attrs="{'invisible': [('type_client', '=', 'particulier')]}" />
+                        <field name="type_sinistre_particulier" attrs="{'invisible': [('type_client', '=', 'entreprise')]}" />
+                    </group>
+                    <div id="sinistre_entreprise_automobile_client_entreprise">
+                        <div>
+                            <group name="sinistre_entreprise_automobile">
+                                
+                                <group>
+                                    
+                                    <field name="cause_sinistre_automobile" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}"/>  
+                                    <field name="info"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="blessure_description" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('info', '=', 'non'),('type_client', '=', 'particulier')]}" required="1"/>  
+                                </group>
+                                <group>
+                                    <field name="info2"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="marque" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('info2', '=', 'non'),('type_client', '=', 'particulier')]}" /> 
+                                    <field name="plaque_controle" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('info2', '=', 'non'),('type_client', '=', 'particulier')]}" required="1"/> 
+                                    <field name="dommage" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('info2', '=', 'non'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('info2', '=', 'non'),('type_client', '=', 'particulier')]}" placeholder= "Sélectionnez un montant..."/>
+                                </group>
+                                <group>
+                                    <field name="chose_endommage"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="description_chose" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('chose_endommage', '=', 'non'),('type_client', '=', 'particulier')]}" placeholder="Attention: Dans la mesure du possible avec le prix d'achat et la date d'achat estimée" />        
+                                </group>
+                                <group>
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}"  />  
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}"  />
+                                    <field name="description_sinistre" placeholder="Vous êtes éventuellement en possession de photos relatives au dommage. Veuillez les conserver, elles pourront être utilisées par la suite." attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}"  />            
+                                </group>
+                                <group>
+                                    <field name="numero_police" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}" /> 
+                                    
+                                </group>
+                            </group>
+                        </div>
+                        <div>
+                            <group> 
+                                <group>  
+                                    <field name="conducteur" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('conducteur', '!=', 'autre'),('type_client', '=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('conducteur', '!=', 'autre'),('type_client', '=', 'particulier')]}" required="1"/> 
+                                    <field name="adresse" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('conducteur', '!=', 'autre'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="email" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('conducteur', '!=', 'autre'),('type_client', '=', 'particulier')]}" placeholder= "exemple@gmail.com..."/>   
+                                    <field name="pays" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('conducteur', '!=', 'autre'),('type_client', '=', 'particulier')]}" /> 
+                                    <field name="date_naissance" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('conducteur', '!=', 'autre'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="date_permis" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('conducteur', '!=', 'autre'),('type_client', '=', 'particulier')]}" />        
+                                </group>
+                                <group>
+                                    <field name="accident" widget="radio" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}" /> 
+                                    <field name="marque" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('accident', '=', 'non'),('type_client', '=', 'particulier')]}" /> 
+                                        <field name="plaque_controle" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('accident', '=', 'non'),('type_client', '=', 'particulier')]}" required="1"/> 
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('accident', '=', 'non'),('type_client', '=', 'particulier')]}" placeholder= "Sélectionnez un montant..."/> 
+                                    <field name="dommage" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('accident', '=', 'non'),('type_client', '=', 'particulier')]}"/>   
+                                        
+                                </group>
+                            </group>
+                        </div>
+                        <div>
+                            <group>
+                                <group>
+                                    <field name="responsable_accident" widget="radio" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}" /> 
+                                    <field name="dommage_declare"  attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('responsable_accident', '=', 'non'),('type_client', '=', 'particulier')]}"/>  
+                                    <field name="declaration_police" attrs="{'invisible': ['|','|','|',('type_sinistre_entreprise', '!=', 'automobile'),('dommage_declare', '=', 'non'),('type_client', '=', 'particulier'),('type_sinistre_entreprise', '!=', 'automobile')]}" />       
+                                </group>
+                                <group>
+                                    <field name="preneur"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'automobile'),('type_client', '=', 'particulier')]}" /> 
+                                    <field name="presentation"  attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('preneur', '!=', 'oui'),('type_client', '=', 'particulier')]}"/>  
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('presentation', '!=', 'conseiller'),('type_client', '=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('presentation', '!=', 'conseiller'),('type_client', '=', 'particulier')]}" required="1"/> 
+                                    <field name="entreprise" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('presentation', '!=', 'conseiller'),('type_client', '=', 'particulier')]}" required="1"/>   
+
+                                    <field name="formule_appel" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('presentation', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>   
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('presentation', '!=', 'autre'),('type_client', '=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('presentation', '!=', 'autre'),('type_client', '=', 'particulier')]}" required="1"/> 
+                                    <field name="email" attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('presentation', '!=', 'autre'),('type_client', '=', 'particulier')]}" required="1"/>  
+                                    <field name="telephone"  attrs="{'invisible': ['|','|',('type_sinistre_entreprise', '!=', 'automobile'),('presentation', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                </group>
+                                
+                            </group>
+                        </div>
+                    </div>
+                   <div id="type_sinistre_entreprise_responsabilite">  
+                        <div>
+                            <group>
+                                <group>
+                                    <field name="dommage_responsabilite_cause" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="appartenance_medicale" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="disposition" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="raison_déclaration" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="description_sinistre" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="cas" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                </group>
+                                <group>
+                                    <field name="reproche" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="animal_race" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="responsable_sinistre" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="justification" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="constat" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="auteur_constat" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="etat_animal" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="type_blessure" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                     
+                                </group><br/>
+                                <group>
+                                    <field name="etat_personne" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="type_blessure_personne" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="responsable_dommage" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="fonction" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="personne" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="presentation" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="formule_appel" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/>             
+                                </group><br/>
+                                <group>
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}"/>             
+                                </group>
+                            </group>
+                        </div>    
+                    </div> 
+
+                    <div id="type_sinistre_entreprise_technique">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="dommage_cause" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="dommage" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="cas" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="declaration_police" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="nom_agent" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                   
+                                </group>  
+                                <group> 
+                                     <field name="preneur" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="presentation" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>     
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'technique'),('type_client', '=', 'particulier')]}"/>
+                                      
+                                </group>  
+                            </group> 
+                        </div>
+                    </div>  
+
+                     <div id="type_sinistre_entreprise_chose">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="dommage_cause" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="dommage" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="cas" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="declaration_police" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="nom_agent" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                   
+                                </group>  
+                                <group> 
+                                     <field name="preneur" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="presentation" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>     
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'chose'),('type_client', '=', 'particulier')]}"/>
+                                      
+                                </group>  
+                            </group> 
+                        </div>
+                    </div>  
+
+                    <div id="type_sinistre_entreprise_autre">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="dommage_cause" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="dommage" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="declaration_police" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                   
+                                </group>  
+                                <group> 
+                                     <field name="preneur" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="presentation" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>     
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                      
+                                </group>  
+                            </group> 
+                        </div>
+                    </div>  
+
+                    <div id = "sinistre_particulier_menage_client_particulier">
+                        <div>
+                            <group name="sinistre_particulier_menage">
+                                <group >
+                                    <field name="cause_sinistre_menage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" />
+                                    <field name="dommage_sinistre_menage"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('cause_sinistre_menage', '=', 'endommagement'),('type_client', '=', 'entreprise')]}"/>  
+                                    <field name="sinistre_menage_smartphone" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'smartphone'),('type_client', '=', 'entreprise')]}" required="1"/>
+                                    <field name="sinistre_menage_velo" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'velo'),('type_client', '=', 'entreprise')]}" required="1"/> 
+                                    <field name="sinistre_menage_cambriolage" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'cambriolage'),('type_client', '=', 'entreprise')]}" required="1"/> 
+                                    <field name="sinistre_menage_cyber" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'cyber'),('type_client', '=', 'entreprise')]}" required="1"/> 
+                                    <field name="numero_police" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('sinistre_menage_cyber', '!=', 'compte'),('type_client', '=', 'entreprise')]}" required="1"/>          
+                                </group>
+                                <group>
+                                    <field name="formule_appel" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'cyber'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="entreprise"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('formule_appel', '!=', 'entreprise'),('type_client', '!=', 'particulier')]}" required="1"/> 
+
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'cyber'),('type_client', '!=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'cyber'),('type_client', '!=', 'particulier')]}" required="1"/>   
+                                    <field name="email" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'cyber'),('type_client', '!=', 'particulier')]}" required="1"/>  
+                                    <field name="telephone"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'cyber'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="localite"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'cyber'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="npa"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'cyber'),('type_client', '!=', 'particulier')]}" required="1"/>  
+                                
+                                </group>
+                                <group >
+                                    <field name="civilité" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('formule_appel', '!=', 'entreprise'),('type_client', '!=', 'particulier')]}"/>   
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('formule_appel', '!=', 'entreprise'),('type_client', '!=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('formule_appel', '!=', 'entreprise'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="email" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('formule_appel', '!=', 'entreprise'),('type_client', '!=', 'particulier')]}" required="1"/>  
+                                    <field name="telephone"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('formule_appel', '!=', 'entreprise'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="localite"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('formule_appel', '!=', 'entreprise'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="npa"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('formule_appel', '!=', 'entreprise'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                </group>
+                                <group>
+
+                                    <field name="autre_dommage_menage"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('dommage_sinistre_menage', '!=', 'autre'),('type_client', '=', 'entreprise')]}"/> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" required="1"/>
+                                    <field name="description_sinistre"  attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/> 
+                                    <field name="lieu_sinistre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" required="1"/>   
+                                    <field name="localite"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('lieu_sinistre', '!=', 'hors'),('type_client', '=', 'entreprise')]}"/> 
+                                    <field name="description_lieu"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('lieu_sinistre', '!=', 'hors'),('type_client', '=', 'entreprise')]}"/>
+                                    <field name="dommage_declare"  attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>
+                                    
+                                </group>
+            
+                            </group> 
+                        </div>
+                        <div>
+                            <group>
+                                <group>
+                                        
+                                    <field name="destruction_sinistre_menage"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('cause_sinistre_menage', '=', 'vol'),('type_client', '=', 'entreprise')]}"/> 
+                                    <field name="parole_donne" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('cause_sinistre_menage', '=', 'vol'),('type_client', '=', 'entreprise')]}" required="1"/>
+                                    <field name="date_fait" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'menage'),('cause_sinistre_menage', '=', 'vol'),('type_client', '=', 'entreprise')]}" required="1"/>
+                                    <field name="appareil_endommage"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>
+                                    <field name="Type_smartphone"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/> 
+                                    <field name="Type_tablette"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>
+                                    <field name="marque"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>
+                                    <field name="capacité_stockage"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>
+                                    <field name="proprietaire_appareil" attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" required="1"/>   
+                                    <field name="usage_privé"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/> 
+                                    <field name="dommage_appareil"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>
+                                    <field name="detail_circonstance"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>
+                                    <field name="description_sinistre"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" placeholder="Ajoutez ici des informations complémentaires relatives au déroulement" />
+                                        
+                                </group>
+                                <group>
+                                    <field name="formule_appel" attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>
+                                    <field name="entreprise"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" required="1"/> 
+
+                                    <field name="name" attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" required="1"/>   
+                                    <field name="email" attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"  required="1"/>  
+                                    <field name="telephone"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>  
+                                    <field name="localite"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"  required="1"/> 
+                                    <field name="npa"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"  required="1"/>  
+                                
+                                </group>
+                                <group >
+                                    <field name="civilité" attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/>    
+                                    <field name="name" attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"  required="1"/> 
+                                    <field name="email" attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"  required="1"/>  
+                                    <field name="telephone"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"/> 
+                                    <field name="localite"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}"  required="1"/> 
+                                    <field name="npa"  attrs="{'invisible': ['|','|',('cause_sinistre_menage', '=', 'vol'),('type_sinistre_particulier', '!=', 'menage'),('type_client', '=', 'entreprise')]}" required="1"/> 
+                                </group>
+                            </group>
+                        </div> 
+                    </div>     
+                    
+                    <div id="sinistre_particulier_voiture_client_particulier">
+                        <div>
+                            <group name="sinistre_particulier_voiture">
+                                
+                                <group>
+
+                                    <field name="cause_sinistre_automobile" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}"/>  
+                                    <field name="info"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="blessure_description" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('info', '=', 'non'),('type_client', '!=', 'particulier')]}" required="1"/>  
+                                </group>
+                                <group>
+                                    <field name="info2"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="marque" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('info2', '=', 'non'),('type_client', '!=', 'particulier')]}" /> 
+                                    <field name="plaque_controle" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('info2', '=', 'non'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="dommage" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('info2', '=', 'non'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('info2', '=', 'non'),('type_client', '!=', 'particulier')]}" placeholder= "Sélectionnez un montant..."/>
+                                </group>
+                                <group>
+                                    <field name="chose_endommage"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="description_chose" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('chose_endommage', '=', 'non'),('type_client', '!=', 'particulier')]}" placeholder="Attention: Dans la mesure du possible avec le prix d'achat et la date d'achat estimée" />        
+                                </group>
+                                <group>
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}"  />  
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}"  />
+                                    <field name="description_sinistre" placeholder="Vous êtes éventuellement en possession de photos relatives au dommage. Veuillez les conserver, elles pourront être utilisées par la suite." attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}"  />            
+                                </group>
+                                <group>
+                                    <field name="numero_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}" /> 
+                                    
+                                </group>
+                            </group>
+                        </div>
+                        <div>
+                            <group> 
+                                <group>  
+                                    <field name="conducteur" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="adresse" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="email" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" placeholder= "exemple@gmail.com..."/>   
+                                    <field name="pays" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" /> 
+                                    <field name="date_naissance" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="date_permis" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" />        
+                                </group>
+                                <group>
+                                    <field name="accident" widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}" /> 
+                                    <field name="marque" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('accident', '=', 'non'),('type_client', '!=', 'particulier')]}" /> 
+                                        <field name="plaque_controle" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('accident', '=', 'non'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('accident', '=', 'non'),('type_client', '!=', 'particulier')]}" placeholder= "Sélectionnez un montant..."/> 
+                                    <field name="dommage" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('accident', '=', 'non'),('type_client', '!=', 'particulier')]}"/>   
+                                        
+                                </group>
+                            </group>
+                        </div>
+                        <div>
+                            <group>
+                                <group>
+                                    <field name="responsable_accident" widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '!=', 'particulier')]}" /> 
+                                    <field name="dommage_declare"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('responsable_accident', '=', 'non'),('type_client', '!=', 'particulier')]}"/>  
+                                    <field name="declaration_police" attrs="{'invisible': ['|','|','|',('type_sinistre_particulier', '!=', 'voiture'),('dommage_declare', '=', 'non'),('type_client', '!=', 'particulier'),('type_sinistre_entreprise', '!=', 'automobile')]}" />       
+                                </group>
+                                <group>
+                                    <field name="preneur"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'voiture'),('type_client', '=', 'particulier')]}" /> 
+                                    <field name="presentation"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('preneur', '!=', 'oui'),('type_client', '!=', 'particulier')]}"/>  
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('presentation', '!=', 'conseiller'),('type_client', '!=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('presentation', '!=', 'conseiller'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="entreprise" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('presentation', '!=', 'conseiller'),('type_client', '=', 'particulier')]}" required="1"/>   
+
+                                    <field name="formule_appel" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>   
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="email" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/>  
+                                    <field name="telephone"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'voiture'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                </group>
+                                
+                            </group>
+                        </div>
+                    </div>
+
+                    <div id="type_sinistre_particulier_batiment">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage_cause" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="declaration_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                   
+                                </group>  
+                                <group> 
+                                    <field name="preneur" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="presentation" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'batiment'),('type_client', '!=', 'particulier')]}"/>
+                                      
+                                </group>  
+                            </group> 
+                        </div>
+                    </div>  
+
+                    <div id="type_particulier_autre">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage_cause" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="declaration_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                   
+                                </group>  
+                                <group> 
+                                     <field name="preneur" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="presentation" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                      
+                                </group>  
+                            </group> 
+                        </div>
+                    </div> 
+
+                    <div id="type_sinistre_particulier_construction">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage_cause" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="declaration_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                   
+                                </group>  
+                                <group> 
+                                    <field name="preneur" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="presentation" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'construction'),('type_client', '!=', 'particulier')]}"/>
+                                      
+                                </group>  
+                            </group> 
+                        </div>
+                    </div>
+
+                    <div id="sinistre_particulier_moto_client_particulier">
+                        <div>
+                            <group name="sinistre_particulier_moto">
+                                
+                                <group>
+
+                                    <field name="cause_sinistre_automobile" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}"/>  
+                                    <field name="info"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="blessure_description" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('info', '=', 'non'),('type_client', '!=', 'particulier')]}" required="1"/>  
+                                </group>
+                                <group>
+                                    <field name="info2"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="marque" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('info2', '=', 'non'),('type_client', '!=', 'particulier')]}" /> 
+                                    <field name="plaque_controle" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('info2', '=', 'non'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="dommage" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('info2', '=', 'non'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('info2', '=', 'non'),('type_client', '!=', 'particulier')]}" placeholder= "Sélectionnez un montant..."/>
+                                </group>
+                                <group>
+                                    <field name="chose_endommage"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="description_chose" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('chose_endommage', '=', 'non'),('type_client', '!=', 'particulier')]}" placeholder="Attention: Dans la mesure du possible avec le prix d'achat et la date d'achat estimée" />        
+                                </group>
+                                <group>
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}"  />  
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}"  />
+                                    <field name="description_sinistre" placeholder="Vous êtes éventuellement en possession de photos relatives au dommage. Veuillez les conserver, elles pourront être utilisées par la suite." attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}"  />            
+                                </group>
+                                <group>
+                                    <field name="numero_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}" /> 
+                                    
+                                </group>
+                            </group>
+                        </div>
+                        <div>
+                            <group> 
+                                <group>  
+                                    <field name="conducteur" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="adresse" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="email" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" placeholder= "exemple@gmail.com..."/>   
+                                    <field name="pays" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" /> 
+                                    <field name="date_naissance" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="date_permis" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('conducteur', '!=', 'autre'),('type_client', '!=', 'particulier')]}" />        
+                                </group>
+                                <group>
+                                    <field name="accident" widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}" /> 
+                                    <field name="marque" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('accident', '=', 'non'),('type_client', '!=', 'particulier')]}" /> 
+                                        <field name="plaque_controle" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('accident', '=', 'non'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('accident', '=', 'non'),('type_client', '!=', 'particulier')]}" placeholder= "Sélectionnez un montant..."/> 
+                                    <field name="dommage" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('accident', '=', 'non'),('type_client', '!=', 'particulier')]}"/>   
+                                        
+                                </group>
+                            </group>
+                        </div>
+                        <div>
+                            <group>
+                                <group>
+                                    <field name="responsable_accident" widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '!=', 'particulier')]}" /> 
+                                    <field name="dommage_declare"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('responsable_accident', '=', 'non'),('type_client', '!=', 'particulier')]}"/>  
+                                    <field name="declaration_police" attrs="{'invisible': ['|','|','|',('type_sinistre_particulier', '!=', 'moto'),('dommage_declare', '=', 'non'),('type_client', '!=', 'particulier'),('type_sinistre_entreprise', '!=', 'automobile')]}" />       
+                                </group>
+                                <group>
+                                    <field name="preneur"  widget="radio" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'moto'),('type_client', '=', 'particulier')]}" /> 
+                                    <field name="presentation"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('preneur', '!=', 'oui'),('type_client', '!=', 'particulier')]}"/>  
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('presentation', '!=', 'conseiller'),('type_client', '!=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('presentation', '!=', 'conseiller'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="entreprise" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('presentation', '!=', 'conseiller'),('type_client', '=', 'particulier')]}" required="1"/>   
+
+                                    <field name="formule_appel" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>   
+                                    <field name="name" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/> 
+                                    <field name="email" attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}" required="1"/>  
+                                    <field name="telephone"  attrs="{'invisible': ['|','|',('type_sinistre_particulier', '!=', 'moto'),('presentation', '!=', 'autre'),('type_client', '!=', 'particulier')]}"/>
+                                </group>
+                                
+                            </group>
+                        </div>
+                    </div> 
+
+                    <div id="type_sinistre_particulier_objet">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage_cause" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="cas" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="declaration_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="nom_agent" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+
+                                </group>  
+                                <group> 
+                                     <field name="preneur" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="presentation" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'objet'),('type_client', '!=', 'particulier')]}"/>
+                                      
+                                </group>  
+                            </group> 
+                        </div>
+                    </div>  
+
+                    <div id="type_sinistre_particulier_garantie">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage_cause" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="cas" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="declaration_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="nom_agent" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+
+                                </group>  
+                                <group> 
+                                     <field name="preneur" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="presentation" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'garantie'),('type_client', '!=', 'particulier')]}"/>
+                                      
+                                </group>  
+                            </group> 
+                        </div> 
+                    </div> 
+
+                    <div id="type_sinistre_particulier_responsabilite">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="dommage_sinistre_responsabilite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="situation" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="objet_loue_dommage" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="adresse" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="date_emmenagement" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="date_demenagement" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="repare_dommage" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="bailleur_info" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+
+                                </group>  
+                                <group> 
+                                     <field name="dommage_locataire" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="document" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero_police" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="auteur_declaration_sinistre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'dommage'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="entreprise" attrs="{'invisible': ['|','|',('auteur_declaration_sinistre', '!=', 'courtier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|','|',('auteur_declaration_sinistre', '!=', 'courtier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|','|',('auteur_declaration_sinistre', '!=', 'courtier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|','|',('auteur_declaration_sinistre', '!=', 'courtier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="titre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|','|',('titre', '!=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('titre', '!=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|','|',('titre', '!=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|','|',('titre', '!=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|','|',('titre', '!=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|','|',('titre', '!=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                      
+                                </group> 
+                                <group> 
+                                    
+                                    <field name="entreprise" attrs="{'invisible': ['|','|',('titre', '=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|','|',('titre', '=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|','|',('titre', '=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|','|',('titre', '=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|','|',('titre', '=', 'particulier'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                    
+                                      
+                                </group> 
+                                <group> 
+                                     <field name="fait_passe" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="description_sinistre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="sinistre_provoque" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="responsable_sinistre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="usage_vehicule" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="nb_jour" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="paiement" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="date_fait" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                </group>   
+                                <group> 
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localisation_sinistre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="pays" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="lieu_sinistre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="type_vehicule" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="marque_vehicule" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="plaque_controle" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="assurance_vehicule" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="compagnie" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="compagnie_name" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="volant_personne" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="personne_menage" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                     <field name="titre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+
+                                    <field name="entreprise" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'accident'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+
+                                </group>  
+                                 <group> 
+                                    <field name="raconte_fait" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage_autre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="type_vehicule" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="type_batiment" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                     <field name="type_objet" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="type_animal" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="etat_animal" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="type_blessure_personne" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="description_sinistre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="date_fait" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+
+                                    <field name="date_approximative" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localisation_sinistre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                </group> 
+                                <group> 
+                                    <field name="titre" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    
+                                    <field name="entreprise" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|','|',('dommage_sinistre_responsabilite', '!=', 'autre'),('type_sinistre_particulier', '!=', 'responsabilite'),('type_client', '!=', 'particulier')]}"/> 
+  
+                                </group> 
+                            </group> 
+                        </div> 
+                    </div> 
+
+                    <div id="type_sinistre_particulier_paiement">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="dommage_sinistre_responsabilite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="situation" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="objet_loue_dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="adresse" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="date_emmenagement" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="date_demenagement" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="repare_dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="bailleur_info" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+
+                                </group>  
+                                <group> 
+                                     <field name="dommage_locataire" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="document" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="auteur_declaration_sinistre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="titre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                      
+                                </group> 
+                                <group> 
+                                    
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                    
+                                      
+                                </group> 
+                                <group> 
+                                     <field name="fait_passe" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="description_sinistre" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="sinistre_provoque" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="responsable_sinistre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="usage_vehicule" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="nb_jour" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="paiement" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                </group>   
+                                <group> 
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localisation_sinistre" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="type_vehicule" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="marque_vehicule" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="plaque_controle" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="assurance_vehicule" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="compagnie" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="compagnie_name" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="volant_personne" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="personne_menage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                     <field name="titre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+
+                                </group>  
+                                 <group> 
+                                    <field name="raconte_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage_autre" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="type_vehicule" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="type_batiment" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                     <field name="type_objet" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="type_animal" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="etat_animal" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="type_blessure_personne" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="description_sinistre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+
+                                    <field name="date_approximative" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localisation_sinistre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                </group> 
+                                <group> 
+                                    <field name="titre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'paiement'),('type_client', '!=', 'particulier')]}"/> 
+  
+                                </group> 
+                            </group> 
+                        </div> 
+                    </div> 
+
+                    <div id="type_sinistre_particulier_accident">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="secteur_activité" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="branche_assurance" attrs="{'invisible': ['|','|',('secteur_activité', '!=', 'assurance'),('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="nature_sinistre" attrs="{'invisible': ['|','|',('secteur_activité', '!=', 'assurance'),('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="filiale" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="numero" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="coordonnee_paiement" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                     
+                                    <field name="titre" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="etat_civil" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="date_naissance" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="nationalite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="coordonnee_paiement" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="impot" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="date_engagement" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="profession" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="fonction" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="contrat_type" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="lieu_travail" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="connaissance_travail" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="occupation" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="temps_travail" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="degre_occupation" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="horaire_travail" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/> 
+                                    
+                                      
+                                </group> 
+                                <group> 
+                                     <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="description_sinistre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage_declare" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="origine_accident" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="partie" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="cote" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="lesion" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="donnee_complementaire" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                </group>   
+                                <group> 
+                                    <field name="dernier_jour" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="Heure" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="motif_absence" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="debut_traitement" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="medecin_traitant" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="hopital" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'accident'),('type_client', '!=', 'particulier')]}"/>
+                                </group> 
+                            </group> 
+                        </div> 
+                    </div> 
+
+                    <div id="type_sinistre_particulier_bateau">  
+                        <div>
+                            <group>
+                                <group> 
+                                    <field name="numero_police" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="type_bateau" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="marque" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="plaque_controle" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="proprietaire_bateau" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="titre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+
+                                </group>  
+                                <group> 
+                                     <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="entreprise" attrs="{'invisible': ['|','|',('preneur', '!=', 'oui'),('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>     
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="personne" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="adresse" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="date_fait" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pays" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="sinistre_survenu" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="description_sinistre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="dommage_bateau" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="partie_bateau_endommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="dommage_bateau_autre" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/> 
+                                </group> 
+                                <group>
+                                    <field name="formule_appel" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="entreprise" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                </group>  
+                                <group> 
+                                    <field name="civilité" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="name" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="telephone" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="email" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                    <field name="localite" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/> 
+                                    <field name="npa" attrs="{'invisible': ['|',('type_sinistre_particulier', '!=', 'bateau'),('type_client', '!=', 'particulier')]}"/>
+                                      
+                                </group>   
+                            </group> 
+                        </div> 
+                    </div> 
+                </sheet>
+            </form>
+        </field>
+    </record> 
+</odoo>

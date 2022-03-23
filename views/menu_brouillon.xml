@@ -1,0 +1,119 @@
+<!-- Intégrer le menu du CRM à Assurfaz -->
+
+      <!-- CRM -->
+      <menuitem id="menu_crm" name="CRM"  
+        parent="assurances.menu_principal_assurfaz" sequence = "1"
+          
+      /> 
+  
+    <!-- Vente -->
+      <menuitem id="menu_crm_vente" name="Vente" 
+        
+        parent="assurances.menu_principal_assurfaz"
+          
+      /> 
+
+      <!-- Analyse -->
+       <menuitem id="menu_crm_analyse" name="Analyse" 
+        
+        parent="assurances.menu_principal_assurfaz"
+          
+      />
+
+       <!-- sous menu de suivi de contact -->
+          <menuitem id="menu_crm_clients_suivi_contact_equipe" name="Equipes" 
+            action="sales_team.crm_team_action_pipeline" sequence="1"
+            parent="assurances.menu_crm_clients_suivi_contact"
+          />
+
+          <menuitem id="menu_crm_clients_suivi_contact_mes_activite" name="Mes activités" 
+            action="crm.crm_lead_action_my_activities"  sequence="2"
+            parent="assurances.menu_crm_clients_suivi_contact"
+          />
+
+          <menuitem id="menu_crm_clients_suivi_contact_mon_pipeline" name="Mon pipeline"
+            action="crm.crm_lead_action_pipeline" sequence="3"
+            parent="assurances.menu_crm_clients_suivi_contact"        
+          />
+
+          <menuitem id="menu_crm_clients_suivi_contact_devis" name="Mes devis" 
+            action="sale.action_quotations" sequence="4" 
+            parent="assurances.menu_crm_clients_suivi_contact"
+          />
+
+      <menuitem id="menu_crm_analyse_prevue" name="Prévues" 
+        action="crm.crm_lead_action_forecast" 
+        parent="assurances.menu_crm_analyse"
+          
+      />
+
+      <menuitem id="menu_crm_analyse_pipeline" name="Pipeline" 
+        action="crm.crm_opportunity_report_action" 
+        parent="assurances.menu_crm_analyse"
+          
+      />
+
+    <menuitem id="menu_crm_analyse_activite" name="Activités" 
+      action="crm.crm_activity_report_action" 
+      parent="assurances.menu_crm_analyse"
+          
+    />
+
+
+    <!-- Intégrer le menu de stock à Assurfaz  -->
+
+     <!-- Stock -->
+      <menuitem id="menu_stock" name="Stock" 
+        sequence="2"
+        parent="assurances.menu_principal_assurfaz"
+          
+      /> 
+
+
+    <!-- articles  -->
+    <menuitem id="menu_stock_article" name="Articles" 
+        action="stock.product_template_action_product" 
+        parent="assurances.menu_principal_assurfaz"
+          
+    />
+
+    <!-- Opérations  -->
+       <menuitem id="menu_stock_operation" name="Opérations"
+       
+        parent="assurances.menu_principal_assurfaz"
+          
+      />
+
+      <menuitem id="menu_stock_operation_ajustement" name="Ajustements de stock" 
+        sequence="2"
+        parent="assurances.menu_stock_operation"
+          
+      />
+
+      <menuitem id="menu_stock_operation_transfert" name="Transferts" 
+        action="stock.action_picking_tree_all" sequence="1"
+        parent="assurances.menu_stock_operation"
+          
+      />
+
+      <menuitem id="menu_stock_operation_reapprovisionnement" name="Réapprovisionnement" 
+        action="stock.action_orderpoint_replenish" 
+        parent="assurances.menu_stock_operation"
+          
+      />
+
+      <!-- menu principal pour les types assurances -->
+  <menuitem id="smenu_assurance_type" name="Assurances" parent="menu_principal_assurfaz" sequence="6"/>
+
+  
+   
+
+    
+
+   
+
+    
+
+    
+
+

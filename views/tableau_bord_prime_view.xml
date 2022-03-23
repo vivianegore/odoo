@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+     <!--Tableau de bord : graph-->
+    <record id="graph_prime_view" model="ir.ui.view">
+        <field name="name">Primes graphique</field>
+        <field name="model">assurfaz.prime</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Enregistrements des primes" type="pie" sample="1">
+                <field name="name"/>
+            </graph>
+        </field>
+    </record>
+
+    
+    <!--L'Action du tableau de bord : graph-->
+    <record id="prime_action_graph_view" model="ir.actions.act_window">
+        <field name="name">Primes graphique</field>
+        <field name="res_model">assurfaz.prime</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="graph_prime_view"/>
+    </record>
+
+
+    <!--Tableau de bord-->
+    <record id="tableau_bord_prime_view" model="ir.ui.view">
+        <field name="name">Tableau de bord </field>
+        <field name="model">board.board</field>
+        <field name="arch" type="xml">
+            <form string="Tableau de bord">
+                <board style="3-1">
+                    <column>
+                        <action string="Primes" name="%(action_assurance_prime)d"/>
+                    </column>
+                    <column>
+                        <action string="Vue graphique" name="%(graph_prime_view)d"/>
+                    </column>
+                </board>
+            </form>
+        </field>
+    </record>
+
+    
+    <!--L'Action du tableau de bord-->
+    <record id="tableau_bord_prime_action" model="ir.actions.act_window">
+        <field name="name">Tableau de bord</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="view_id" ref="tableau_bord_prime_view"/>
+    </record>
+
+    <!--Le Menu du tableau de bord -->
+      <menuitem id="menu_tableau_bord" sequence="1" action="tableau_bord_prime_action" parent="smenu_assurance_prime"/>
+
+</odoo>

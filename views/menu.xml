@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<odoo>
+
+   <!-- Le Menu principal dans le Home menu de odoo: Assurfaz -->
+  <menuitem id="menu_principal_assurfaz" name="Assurfaz" />
+
+  <!-- Intégrer le menu du CRM à Assurfaz -->
+
+    <!-- CRM -->
+      <menuitem id="menu_crm" name="CRM"  
+       
+        parent="assurances.menu_principal_assurfaz" sequence = "1"     
+      /> 
+
+      <!-- clients -->
+      <menuitem id="menu_crm_clients" name="Clients" 
+        action="base.action_partner_form"  sequence="2"
+        parent="assurances.menu_crm"
+          
+      /> 
+      <!-- sous menu de Clientts -->
+
+        <!-- suivi du contact -->
+        <menuitem id="menu_crm_clients_suivi_contact" name="Suivi du contact" 
+          action="contacts.action_contacts"
+          parent="assurances.menu_crm_clients"
+            
+        /> 
+         
+        <!-- menu types assurances -->
+       
+          <!-- action  pour les assurances auto-->
+          <record id="action_assurance_auto" model="ir.actions.act_window">
+            <field name="name">Assurance auto/moto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">assurfaz.auto</field>
+            <field name="view_mode">tree,form</field>
+          </record>
+          <!-- menu  pour les assurances auto-->
+          <menuitem id="smenus_assurance_auto" name="Assurance Auto/Moto" parent="assurances.menu_crm_clients" action="action_assurance_auto" />
+
+          <!-- action  pour les assurances Voyage-->
+          <record id="action_assurance_voyage" model="ir.actions.act_window">
+            <field name="name">Assurance voyage</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">assurfaz.voyage</field>
+            <field name="view_mode">tree,form</field>
+          </record>
+          <!-- menu  pour les assurances Voyage-->
+          <menuitem id="smenus_assurance_voyage" name="Assurance Voyage" parent="assurances.menu_crm_clients" action="action_assurance_voyage" />
+
+          <!-- action  pour les assurances habitation-->
+          <record id="action_assurance_habitation" model="ir.actions.act_window">
+            <field name="name">Assurance habitation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">assurfaz.habitation</field>
+            <field name="view_mode">tree,form</field>
+          </record>
+          <!-- menu  pour les assurances habitation-->
+          <menuitem id="smenus_assurance_habitation" name="Assurance Habitation" parent="assurances.menu_crm_clients" action="action_assurance_habitation" />
+
+          <!-- action  pour les assurances Santé-->
+          <record id="action_assurance_sante" model="ir.actions.act_window">
+            <field name="name">Assurance santé</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">assurfaz.sante</field>
+            <field name="view_mode">tree,form</field>
+          </record>
+          <!-- menu  pour les assurances Santé-->
+          <menuitem id="smenus_assurance_sante" name="Assurance Santé" parent="assurances.menu_crm_clients" action="action_assurance_sante" />
+
+          <!-- action  pour les assurances Vie-->
+          <record id="action_assurance_vie" model="ir.actions.act_window">
+            <field name="name">Assurance vie</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">assurfaz.vie</field>
+            <field name="view_mode">tree,form</field>
+          </record>
+          <!-- menu  pour les assurances Vie-->
+          <menuitem id="smenus_assurance_vie" name="Assurance Vie" parent="assurances.menu_crm_clients" action="action_assurance_vie" />
+      
+      <!-- contrats -->
+      <menuitem id="menu_crm_contrat" name="Contrats" 
+        action="sale.action_quotations_with_onboarding"  
+        parent="assurances.menu_crm"
+          
+      /> 
+
+      <!-- facturation -->
+      <menuitem id="menu_crm_facturation" name="Facturation" 
+        action="account.action_move_out_invoice_type"  
+        parent="assurances.menu_crm"
+          
+      /> 
+              
+
+
+  <!-- Intégrer le menu de stock à Assurfaz  -->
+
+     <!-- Stock -->
+      <menuitem id="menu_stock" name="Stock" 
+        action="stock.stock_picking_type_action" 
+        parent="assurances.menu_principal_assurfaz"
+          
+      /> 
+
+      <menuitem id="menu_stock_attestation" name="Attestations" 
+        action="stock.action_stock_scrap" sequence="2"
+        parent="assurances.menu_stock"
+          
+      /> 
+
+      <menuitem id="menu_stock_article" name="Articles" 
+        action="stock.product_template_action_product" sequence="3"
+        parent="assurances.menu_stock"
+          
+      /> 
+
+      <menuitem id="menu_stock_entrepot" name="Magasins" 
+        action="stock.action_warehouse_form" sequence="4"
+        parent="assurances.menu_stock"
+          
+      /> 
+      <menuitem id="menu_stock_emplacemant" name="Emplacements" 
+        action="stock.action_location_form" sequence="5"
+        parent="assurances.menu_stock"
+          
+      /> 
+      <menuitem id="menu_stock_transfert" name="Transferts" 
+        action="stock.action_picking_tree_all" sequence="6"
+        parent="assurances.menu_stock"
+          
+      /> 
+
+
+  <!--Gestion des sinistres-->
+    <!-- action  pour les modèles de gestion des sinistres-->
+      <record id="action_assurance_sinistre" model="ir.actions.act_window">
+        <field name="name">Gestion des sinistres</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">assurfaz.sinistre</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+    <!-- menu  pour les modèles de gestion des sinistres -->
+    <menuitem id="smenu_assurance_sinistre" name="Sinistres" parent="menu_principal_assurfaz"  sequence="3"/>
+
+    <!-- menu  pour les modèles de gestion des sinistres -->
+    <menuitem id="smenu_assurance_sinistre_sous" name="Sinistres" parent="smenu_assurance_sinistre" action ="action_assurance_sinistre" />
+
+
+
+  <!-- Gestion des primes-->
+    <!-- action  pour les modèles de gestion des primes-->
+      <record id="action_assurance_prime" model="ir.actions.act_window">
+        <field name="name">Gestion des primes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">assurfaz.prime</field>
+        <field name="view_mode">tree,form</field>
+      </record> 
+    <!-- menu  pour les modèles de gestion des primes -->
+    <menuitem id="smenu_assurance_prime" name="Primes" parent="menu_principal_assurfaz"  sequence="4"/> 
+
+    <!-- menu  pour les modèles de gestion des primes -->
+    <menuitem id="smenu_assurance_prime_sous" name="Primes" parent="smenu_assurance_prime" action ="action_assurance_prime" /> 
+
+
+    <!-- menu  pour Paramètre-->
+    <menuitem id="smenu_assurance_auto_parametre" name="Paramètres" parent="menu_principal_assurfaz" sequence="5" />
+
+    <!-- action  pour les marques de véhicules-->
+      <record id="action_assurance_auto_vehicule_marque" model="ir.actions.act_window">
+        <field name="name">Marques de véhicules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">assurfaz.auto.vehicule.marque</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+    <!-- menu  pour les marques de véhicules -->
+    <menuitem id="smenus_assurance_auto_parametres_marque" name="Marques de véhicules" parent="smenu_assurance_auto_parametre" action ="action_assurance_auto_vehicule_marque" sequence="1"/>
+
+
+
+    <!-- action  pour les modèles de véhicules-->
+      <record id="action_assurance_auto_vehicule_modele" model="ir.actions.act_window">
+        <field name="name">Modèles de véhicules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">assurfaz.auto.vehicule.modele</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+    <!-- menu  pour les modèles de véhicules -->
+    <menuitem id="smenus_assurance_auto_parametres_modele" name="Modèles de véhicules" parent="smenu_assurance_auto_parametre" action = "action_assurance_auto_vehicule_modele" sequence="2"/>
+
+</odoo>  

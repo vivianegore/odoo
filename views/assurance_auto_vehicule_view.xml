@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<odoo>
+<!--  vues pour Véhicule-->  
+    <!-- modèle de la vue List -->
+    <record id="assurance_auto_vehicule_view_list" model="ir.ui.view">
+        <field name="name">vehicule.list</field>
+        <field name="model">assurfaz.auto.vehicule</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="immatriculation"/>
+                <field name="categorisation"/>
+                <field name="carburation"/>   
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- modèle de la vue Form -->
+    <record id="assurance_auto_vehicule_view_form" model="ir.ui.view">
+        <field name="name">vehicule.form</field>
+        <field name="model">assurfaz.auto.vehicule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group> 
+                        <group>
+                            <field name="assurance_type"/>
+                            <field name="nombre_vehicule" attrs="{'invisible': [('assurance_type', '=', 'vehicule')]}"/>
+                        </group><br/>
+                        <group>
+                            <field name="categorisation"/>
+                            <field name="volumetrie_roue" attrs="{'invisible': ['|',('categorisation', '=', 'vehicule_particulier'), ('categorisation', '=', 'vehicule_utilitaire')]}"/>
+                            <field name="option_vehicule_utilitaire" attrs="{'invisible': ['|',('categorisation', '=', 'vehicule_particulier'), ('categorisation', '=', 'roue')]}"/>
+                            <field name="personnel_carosserie_vehicule" attrs="{'invisible': ['|','|',('categorisation', '=', 'vehicule_particulier'), ('categorisation', '=', 'roue'),('option_vehicule_utilitaire', '=', 'tiers')]}"/>
+                            <field name="tiers_carosserie_vehicule" attrs="{'invisible': ['|','|',('categorisation', '=', 'vehicule_particulier'), ('categorisation', '=', 'roue'),('option_vehicule_utilitaire', '=', 'personnel')]}"/>
+                            <field name="carburation" attrs="{'invisible': [('categorisation', '=', 'roue')]}"/>
+                            <field name="date_premiere_circulation"/>
+                        </group><br/>
+                        <group name="marque_modele" string="Marques et modèle">
+                            <field name="marque" attrs="{'required': [('assurance_type', 'in', [('vehicule'),('flotte')])]}"/>
+                            <field name="modele" attrs="{'required': [('assurance_type', 'in', [('vehicule'),('flotte')])]}"/>
+                        </group><br/>
+                        <group name="detail_vehicule " string="Details du véhicule">
+                            <field name="puissance_fiscale"/>
+                            <field name="nombre_place"/>
+                        </group><br/>
+                        <group name="valeur_immatriculation " string="Valeur et immatriculation">
+                            <field name="valeur"/>
+                            <field name="immatriculation"/>
+                        </group>     
+                    </group> 
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
