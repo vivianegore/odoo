@@ -2,9 +2,12 @@ from odoo import api,fields, models,_
 import datetime
 from dateutil.relativedelta import *
 
+from odoo.addons.mail.models import res_users
+
 
 class AssuranceAuto(models.Model):
     _name = 'assurfaz.auto'
+    _inherit = ['mail.thread']
     _description = 'Assurance Auto/moto'
 
    
@@ -21,7 +24,7 @@ class AssuranceAuto(models.Model):
 
    
     #Bénéficiaire
-    name = fields.Many2one('res.users',string="Nom du bénéficiaire",copy=False)
+    name = fields.Many2one('res.partner',string="Nom du bénéficiaire",copy=False)
     civilite = fields.Selection([('monsieur','Monsieur'),
         ('madame','Madame')],
         string= 'Civilité ',
@@ -57,6 +60,31 @@ class AssuranceAuto(models.Model):
 
     carte_grise = fields.Binary(string="Carte grise")
     
+
+    def notification_send(self):
+        notification_ids=[]
+        if self.env.user:
+            notification_ids.append((0,0,{
+                    'res_partner_id': self.env.user.partner_id.id,
+                    'notification_type' : 'inbox'
+   
+            }))
+
+            self.env['mail.message'].create({
+
+                'message_type':"notification",
+                'body': "Message",
+                'subject': "Message subject",
+                'model': self._name,
+                'res_id':self.id,
+                'partner_ids': [self.env.user.partner_id.id],
+                'author_id': self.env.user.partner_id.id,
+                'notification_ids': notification_ids,
+            })
+           
+
+
+
 
 
     

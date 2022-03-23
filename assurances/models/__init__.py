@@ -15,3 +15,6 @@ from . import assurance_vie
 from . import vente
 from . import facturation
 from . import res_partner
+from . import type_assurance
+from . import article
+from . import entrepot, emplacement

@@ -36,5 +36,8 @@ access_assurance_sante_manager,AssuranceSanteManager,model_assurfaz_sante,assurf
 access_assurance_vie_user,AssuranceVieUser,model_assurfaz_vie,assurfaz_group_user,1,0,0,0
 access_assurance_vie_manager,AssuranceVieManager,model_assurfaz_vie,assurfaz_group_manager,1,1,1,1
 
+access_typeassurance_user,TypeAssuranceUser,model_assurfaz_typeassurance,assurfaz_group_user,1,0,0,0
+access_typeassurance__manager,TypeAssuranceManager,model_assurfaz_typeassurance,assurfaz_group_manager,1,1,1,1
+
 
 

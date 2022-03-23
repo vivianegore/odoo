@@ -99,7 +99,7 @@
 
      <!-- Stock -->
       <menuitem id="menu_stock" name="Stock" 
-        action="stock.stock_picking_type_action" sequence="2"
+        action="stock.stock_picking_type_action" 
         parent="assurances.menu_principal_assurfaz"
           
       /> 
@@ -110,6 +110,27 @@
           
       /> 
 
+      <menuitem id="menu_stock_article" name="Articles" 
+        action="stock.product_template_action_product" sequence="3"
+        parent="assurances.menu_stock"
+          
+      /> 
+
+      <menuitem id="menu_stock_entrepot" name="Magasins" 
+        action="stock.action_warehouse_form" sequence="4"
+        parent="assurances.menu_stock"
+          
+      /> 
+      <menuitem id="menu_stock_emplacemant" name="Magasins" 
+        action="stock.action_location_form" sequence="5"
+        parent="assurances.menu_stock"
+          
+      /> 
+      <menuitem id="menu_stock_transfert" name="Transferts" 
+        action="stock.action_picking_tree_all" sequence="6"
+        parent="assurances.menu_stock"
+          
+      /> 
 
 
   <!--Gestion des sinistres-->

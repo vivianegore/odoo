@@ -6,7 +6,7 @@
 'category': 'Services',
 'website': 'https://www.digifaz.com',
 'author': 'DIGIFAZ',
-'depends': ['base','crm','stock','account','sale_management'],
+'depends': ['base','crm','stock','account','sale_management','mail'],
 'data': ['security/assurfaz_security.xml',
 'security/ir.model.access.csv',
 'views/menu.xml',
@@ -25,7 +25,8 @@
 'views/tableau_bord_stock_view.xml',
 'views/tableau_bord_sinistre_view.xml',
 'views/tableau_bord_prime_view.xml',
-'views/res_partner.xml'
+'views/res_partner.xml',
+'views/type_assurance_view.xml',
 ],
 'installable': True,
 'application': True,

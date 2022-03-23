@@ -63,3 +63,4 @@ class AssuranceHabitation(models.Model):
     date_effet = fields.Date("Date d'effet")
     date_echeance = fields.Date("Date d'échéance")
 
+    

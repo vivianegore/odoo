@@ -13,7 +13,7 @@
                           <group string="Assurance">
                                 
                                 <field name="statut" />
-                                <field name="produit_assurance"/>
+                                <field name="produit_assurance_ids" widget="many2many_tags" />
                             </group>
                         </div>    
                 </xpath>     

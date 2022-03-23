@@ -21,6 +21,7 @@
             <form>
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="nouvelle,validee,acceptee,refusee" attrs="{'required': True}" />
+                    <!-- <button name="notification_action"  string="Confirmer"  type="object"/> -->
                 </header>
                 <sheet>
                     <field name="carte_grise" widget="image"  class="oe_avatar"/>
@@ -60,6 +61,11 @@
                         </page> 
                     </notebook>
                 </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <!-- <field name="activity_ids"/>  -->
+                    <field name="message_ids"/>
+                </div> 
             </form>
         </field>
     </record>

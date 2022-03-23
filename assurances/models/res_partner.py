@@ -4,17 +4,13 @@ from odoo import  fields, models
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    produit_assurance = fields.Selection([('auto','Assurance auto/moto'),('voyage','Assurance voyage'),
-        ('habitation','Assurance habitation'),('sante','Assurance santé'),
-        ('vie','Assurance vie')], 
-        string ="Produits d'assurance",
-        default='vie'
-    )
+    
     statut = fields.Selection([('nouveau','Nouveau '),('potentiel','Client potentiel'),
         ('important','Client important')],
         string ="Qualification du contact",
         default='potentiel'
     )
+    produit_assurance_ids = fields.Many2many('assurfaz.typeassurance','typeassurance_partner_rel','partner_id','typeassurance_id')
 
 
     

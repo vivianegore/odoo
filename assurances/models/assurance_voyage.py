@@ -4,6 +4,7 @@ from odoo import fields,models
      
 class AssuranceVoyage(models.Model):
     _name = 'assurfaz.voyage'
+    _inherit = ['mail.thread']
     _description = 'Assurance Voyage'
   
 
@@ -26,7 +27,7 @@ class AssuranceVoyage(models.Model):
     age_passager = fields.Integer("Âge du passager")
 
     #Bénéficiaire
-    name = fields.Many2one('res.users',string="Nom du bénéficiaire",copy=False)
+    name = fields.Many2one('res.partner',string="Nom du bénéficiaire",copy=False)
     civilite = fields.Selection([('monsieur','Monsieur'),
         ('madame','Madame')],
         string= 'Civilité ',
