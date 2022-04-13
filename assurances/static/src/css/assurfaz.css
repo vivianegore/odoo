@@ -1,0 +1,19 @@
+#sinistre_entreprise_automobile_client_entreprise{
+   margin-bottom: 0;
+}
+
+.msg{
+   margin-top: 25px;
+   padding: 25px;
+   display: none;
+   color: #fff;
+ }
+ .yellow{ 
+   background: yellow; 
+ }
+ .green{ 
+   background: green; 
+ }
+ .red{ 
+   background: red; 
+ }

@@ -121,7 +121,7 @@
         parent="assurances.menu_stock"
           
       /> 
-      <menuitem id="menu_stock_emplacemant" name="Magasins" 
+      <menuitem id="menu_stock_emplacemant" name="Emplacements" 
         action="stock.action_location_form" sequence="5"
         parent="assurances.menu_stock"
           

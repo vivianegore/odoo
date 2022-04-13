@@ -19,7 +19,14 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="nouvelle,validee,acceptee,refusee" attrs="{'required': True}" />
+                    <button name="action_valide" data-hotkey="v"
+                            string="Valider" type="object" class="btn-primary"
+                        
+                    />
+                    <button id="button_cancel" name="action_retour" string="Annuler" class="oe_light" type="object" attrs="{'invisible': [('state', 'not in', ['validee','acceptee','refusee'])]}"/> 
+                    <button id="button_accept" name="action_accepte" string="Accepter" class="oe_light" type="object"/>   
+                    <button id="button_refuse" name="action_refuse" string="Refuser" class="oe_light" type="object" /> 
+                    <field name="state" widget="statusbar"  statusbar_visible="nouvelle,validee,acceptee,refusee" attrs="{'required': True}" />
                 </header>
                 <sheet>
                     <group>
@@ -27,6 +34,12 @@
                             
                     </group>
                 </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <!-- <field name="activity_ids"/>  -->
+                    <field name="message_ids"/>
+                </div> 
             </form>
         </field>
     </record> 

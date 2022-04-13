@@ -6,7 +6,9 @@
 'category': 'Services',
 'website': 'https://www.digifaz.com',
 'author': 'DIGIFAZ',
+
 'depends': ['base','crm','stock','account','sale_management','mail'],
+
 'data': ['security/assurfaz_security.xml',
 'security/ir.model.access.csv',
 'views/menu.xml',
@@ -28,6 +30,14 @@
 'views/res_partner.xml',
 'views/type_assurance_view.xml',
 ],
+
+'assets': {
+        'web.assets_backend': [
+            'assurances/static/src/css/assurfaz.css',
+            'assurances/static/src/js/assurfaz.js',
+        ],
+    },
+
 'installable': True,
 'application': True,
 'auto_install': False,

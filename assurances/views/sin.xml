@@ -1,0 +1,102 @@
+<!-- Formulaire de déclaration des sinistres entreprises et particuliers: automobile, voiture et moto -->
+                    <div>
+                        
+                        <group col="4" attrs="{'invisible': ['|',('type_sinistre_entreprise','in', ['responsabilite','technique','chose','autre']),('type_sinistre_particulier', 'not in', ['moto','voiture'])]}">
+                            <field name="cause_sinistre_automobile"  class="oe_inline" />  
+                            <field name="info"  widget="radio"  class="oe_inline"/> 
+                            <field name="blessure_description" required="1" class="oe_inline"/>  
+                        </group>
+                        <group col="4" attrs="{'invisible': ['|',('type_sinistre_entreprise','in', ['responsabilite','technique','chose','autre']),('type_sinistre_particulier', 'not in', ['moto','voiture'])]}">
+                            <field name="info2"  widget="radio"  options="{'horizontal': true}" class="oe_inline"/> 
+                            <field name="marque" attrs="{'invisible': [('info2', '=', 'non')]}" /> 
+                            <field name="plaque_controle" attrs="{'invisible': [('info2', '=', 'non')]}" required="1" class="oe_inline"/> 
+                            <field name="prix_dommage" attrs="{'invisible': [('info2', '=', 'non')]}" placeholder= "Sélectionnez un montant..." class="oe_inline"/>
+                            <field name="dommage" attrs="{'invisible': [('info2', '=', 'non')]}" class="oe_inline"/> 
+                            
+                        </group>
+                        <group col="4" attrs="{'invisible': ['|',('type_sinistre_entreprise','in', ['responsabilite','technique','chose','autre']),('type_sinistre_particulier', 'not in', ['moto','voiture'])]}">
+                            <field name="chose_endommage"  widget="radio"  options="{'horizontal': true}" class="oe_inline"/> 
+                            <field name="description_chose" attrs="{'invisible': [('chose_endommage', '=', 'non')]}" placeholder="Attention: Dans la mesure du possible avec le prix d'achat et la date d'achat estimée"  class="oe_inline"/>        
+                        </group>
+                       
+
+                        <group col="4"  attrs="{'invisible': ['|',('type_sinistre_entreprise', 'in', ['responsabilite','technique','chose','autre']),('type_sinistre_particulier', 'not in', ['moto','voiture'])]}">
+                            <field name="accident" widget="radio"  options="{'horizontal': true}" class="oe_inline"/> 
+                            <field name="marque_autre_vehicule" attrs="{'invisible': [('accident', '=', 'non')]}"  class="oe_inline"/> 
+                            <field name="plaque_controle_autre_vehicule" attrs="{'invisible': [('accident', '=', 'non')]}" required="1" class="oe_inline"/> 
+                            <field name="prix_dommage_chose" attrs="{'invisible': [('accident', '=', 'non')]}" class="oe_inline"/> 
+                            <field name="chose_endommage" attrs="{'invisible': [('accident', '=', 'non')]}" widget="radio"  options="{'horizontal': true}" class="oe_inline"/> 
+                                             
+                        </group>       
+
+                        <group col="4" attrs="{'invisible': ['|',('type_sinistre_entreprise', 'in', ['responsabilite','technique','chose','autre']),('type_sinistre_particulier', 'not in', ['moto','voiture'])]}" >
+                            <field name="responsable_accident" widget="radio"  options="{'horizontal': true}"  class="oe_inline"/> 
+                            <field name="dommage_declare"  attrs="{'invisible': [('responsable_accident', '=', 'non')]}" widget="radio" options="{'horizontal': true}"  class="oe_inline"/>  
+                            <field name="declaration_police" attrs="{'invisible': [('dommage_declare', '=', 'non')]}"  class="oe_inline"/>       
+                        </group>
+                        <group col="4" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=','automobile'),('type_sinistre_particulier', 'not in', ['moto','voiture'])]}">  
+                            <field name="conducteur"  class="oe_inline"/>
+                            <field name="name_conducteur" attrs="{'invisible': [('conducteur', '!=', 'autre')]}" required="1" class="oe_inline"/>
+                            <field name="pname_conducteur" attrs="{'invisible': [('conducteur', '!=', 'autre')]}" required="1" class="oe_inline"/> 
+                            <field name="adresse_conducteur" attrs="{'invisible': [('conducteur', '!=', 'autre')]}" class="oe_inline"/> 
+                            <field name="email_conducteur" attrs="{'invisible': [('conducteur', '!=', 'autre')]}" placeholder= "exemple@gmail.com..." class="oe_inline"/>   
+                            <field name="pays_conducteur" attrs="{'invisible': [('conducteur', '!=', 'autre')]}"  class="oe_inline"/> 
+                            <field name="date_naissance" attrs="{'invisible': [('conducteur', '!=', 'autre')]}" class="oe_inline"/> 
+                            <field name="date_permis" attrs="{'invisible': [('conducteur', '!=', 'autre')]}"  class="oe_inline"/>        
+                        </group>   
+                    </div>
+
+                    <!-- Formulaire pour les déclarations de sinistre entreprise et particulier : responsabilite, chose, garantie -->
+                    <div >
+                            
+                                <group col="4">
+                                    <field name="dommage_responsabilite_cause" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/>  
+                                    <field name="appartenance_medicale" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="disposition" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="raison_déclaration" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="description_sinistre" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    
+                                </group>
+                                <!-- commun à trois déclarations -->
+                                <group>
+                                    <field name="cas" attrs="{'invisible': ['|',('type_sinistre_entreprise','!=','chose'),('type_sinistre_particulier', 'not in', ['objet','garantie'])]}" class="oe_inline"/>
+                                    
+                                </group >
+                                <group col="4">
+                                    <field name="reproche" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="animal_race" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="responsable_sinistre" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="justification" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="constat" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="auteur_constat" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/>
+                                    <field name="etat_animal" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="type_blessure" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/>     
+                                </group>
+                                <group>
+                                    <field name="etat_personne" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="type_blessure_personne" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="responsable_dommage" attrs="{'invisible': ['|',('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="nom_responsable_dommage" attrs="{'invisible': ['|','|',('responsable_dommage', '!=', 'autre'),('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="pnom_responsable_dommage" attrs="{'invisible': ['|','|',('responsable_dommage', '!=', 'autre'),('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="telephone_responsable_dommage" attrs="{'invisible': ['|','|',('responsable_dommage', '!=', 'autre'),('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/> 
+                                    <field name="fonction" attrs="{'invisible': ['|','|',('responsable_dommage', '!=', 'autre'),('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/>
+                                    <field name="personne" attrs="{'invisible': ['|','|',('responsable_dommage', '=', 'autre'),('type_sinistre_entreprise', '!=', 'responsabilite'),('type_client', '=', 'particulier')]}" class="oe_inline"/>
+                                </group>
+                    </div>
+
+
+                    <div id="type_sinistre_entreprise_technique">
+                            
+                                <group > 
+                                    
+                                    <field name="prix_dommage" attrs="{'invisible': ['|',('type_sinistre_entreprise','not in',['technique','chose']),('type_sinistre_particulier','!=','garantie')]}" class="oe_inline"/>
+                                    <field name="dommage_cause" attrs="{'invisible': ['|',('type_sinistre_entreprise','not in',['technique','chose','autre']),('type_sinistre_particulier','not in',['garantie','autre'])]}" class="oe_inline"/>
+                                    <field name="dommage" attrs="{'invisible': ['|',('type_sinistre_entreprise','not in',['technique','chose','autre']),('type_sinistre_particulier','not in',['garantie','autre'])]}" class="oe_inline"/>      
+                                </group>  
+                                <group >
+                                    <field name="nom_agent" attrs="{'invisible': ['|',('type_sinistre_entreprise','not in',['technique','chose']),('type_sinistre_particulier','!=','garantie')]}" class="oe_inline"/> 
+                                    <field name="declaration_police" attrs="{'invisible': ['|',('type_sinistre_entreprise','not in',['technique','chose','autre']),('type_sinistre_particulier','not in',['garantie','autre'])]}" class="oe_inline"/>
+                                       
+                                </group> 
+     
+                    </div>
