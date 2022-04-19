@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_habitation_view_list" model="ir.ui.view">
+        <field name="name">assurance.habitation.list </field>
+        <field name="model">assurfaz.habitation</field>
+        <field name="arch" type="xml">
+            <tree  >    
+                <field name="occupant"/> 
+                <field name="valeur_garantie"/>   
+                <field name="valeur_batiment"/> 
+                <field name="date_echeance"/> 
+                       
+            </tree>
+        </field>
+    </record>
+
+    <!-- modèle de la vue Form -->
+     <record id="assurance_habitation_view_form" model="ir.ui.view">
+        <field name="name">assurance.habitation.form</field>
+        <field name="model">assurfaz.habitation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_valide" data-hotkey="v"
+                        string="Valider" type="object" class="btn-primary"
+                       
+                    />
+                    <button id="button_cancel" name="action_retour" string="Annuler" class="oe_light" type="object" attrs="{'invisible': [('state', 'not in', ['validee','acceptee','refusee'])]}"/>
+                    <button id="button_accept" name="action_accepte" string="Accepter" class="oe_light" type="object"/>   
+                    <button id="button_refuse" name="action_refuse" string="Refuser" class="oe_light" type="object" /> 
+                    <field name="state" widget="statusbar"  statusbar_visible="nouvelle,validee,acceptee,refusee" attrs="{'required': True}" />
+                </header>
+                <sheet>
+                        
+                    <group>
+                        <field name="type_logement" required="1"/>
+                    </group> <br/>
+                    
+                    <group string="Période de couverture">
+                        <div>
+                            <group>
+                                <group>
+                                    <field name="duree_garantie" required="1"/> 
+                                    <field name="date_effet" required="1"/>
+                                </group>
+                                <group>
+                                    <field name="date_echeance" /> 
+                                </group><br/>
+                            </group>
+                        </div>
+                    </group>
+                    <notebook>
+                        <page string="Logement">
+                            <div>
+                                <group>
+                                    <group string="Détails du logement ">
+                                        <field name="type_toiture"/>
+                                        <field name="environnement_immediat"/> 
+                                        <field name="adresse"/>
+                                    </group>
+                                    <group string="Superficie et Nombre de pièces">  
+                                        <field name="surface"/>   
+                                        <field name="nb_piece"/> 
+                                    </group>
+                                    <group string="Propriétaire/Locataire ">
+                                        <field name="occupant"/>   
+                                        <field name="loyer_locataire" attrs="{'invisible': [('occupant', '=', 'locataire')]}"/>
+                                    </group>
+                                    <group string="Valeur">  
+                                        <field name="valeur_garantie"/>   
+                                        <field name="valeur_batiment"/>
+                                    </group>
+                                </group>
+                            </div>
+                        </page> 
+                    </notebook>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <!-- <field name="activity_ids"/>  -->
+                    <field name="message_ids"/>
+                </div> 
+            </form>
+        </field>
+    </record> 
+</odoo>

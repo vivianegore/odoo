@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_sante_view_list" model="ir.ui.view">
+        <field name="name">assurance.sante.list </field>
+        <field name="model">assurfaz.sante</field>
+        <field name="arch" type="xml">
+            <tree  >    
+                <field name="name" />  
+                       
+            </tree>
+        </field>
+    </record>
+
+    <!-- modèle de la vue Form -->
+     <record id="assurance_sante_view_form" model="ir.ui.view">
+        <field name="name">assurance.sante.form</field>
+        <field name="model">assurfaz.sante</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_valide" data-hotkey="v"
+                            string="Valider" type="object" class="btn-primary"
+                        
+                    />
+                    <button id="button_cancel" name="action_retour" string="Annuler" class="oe_light" type="object" attrs="{'invisible': [('state', 'not in', ['validee','acceptee','refusee'])]}"/> 
+                    <button id="button_accept" name="action_accepte" string="Accepter" class="oe_light" type="object"/>   
+                    <button id="button_refuse" name="action_refuse" string="Refuser" class="oe_light" type="object" /> 
+                    <field name="state" widget="statusbar"  statusbar_visible="nouvelle,validee,acceptee,refusee" attrs="{'required': True}" />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/> 
+                            
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <!-- <field name="activity_ids"/>  -->
+                    <field name="message_ids"/>
+                </div> 
+            </form>
+        </field>
+    </record> 
+</odoo>

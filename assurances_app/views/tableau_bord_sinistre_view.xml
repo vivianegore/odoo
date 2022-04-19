@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+     <!--Tableau de bord : graph-->
+    <record id="graph_sinistre_view" model="ir.ui.view">
+        <field name="name">Sinistres graphique</field>
+        <field name="model">assurfaz.sinistre</field>
+        <field name="type">graph</field>
+        <field name="arch" type="xml">
+            <graph string="Enregistrements des sinistres" type="pie" sample="1">
+                <field name="name"/>
+            </graph>
+        </field>
+    </record>
+
+    
+    <!--L'Action du tableau de bord : graph-->
+    <record id="sinistre_action_graph_view" model="ir.actions.act_window">
+        <field name="name">Sinistres graphique</field>
+        <field name="res_model">assurfaz.sinistre</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="graph_sinistre_view"/>
+    </record>
+
+    <!--Tableau de bord-->
+    <record id="tableau_bord_sinistre_view" model="ir.ui.view">
+        <field name="name">Tableau de bord </field>
+        <field name="model">board.board</field>
+        <field name="arch" type="xml">
+            <form string="Tableau de bord">
+                <board style="3-1">
+                    <column>
+                        <action string="Sinistres" name="%(action_assurance_sinistre)d"/>
+                    </column>
+                     <column>
+                        <action string="Vue graphique" name="%(graph_sinistre_view)d"/>
+                    </column>
+                </board>
+            </form>
+        </field>
+    </record>
+
+    
+    <!--L'Action dutableau de bord-->
+    <record id="tableau_bord_action_sinistre" model="ir.actions.act_window">
+        <field name="name">Tableau de bord</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="view_id" ref="tableau_bord_sinistre_view"/>
+    </record>
+
+    <!--Le Menu du tableau de bord -->
+      <menuitem id="menu_tableau_bord_sinistre" sequence="1" action="tableau_bord_action_sinistre" parent="smenu_assurance_sinistre"/>
+
+</odoo>

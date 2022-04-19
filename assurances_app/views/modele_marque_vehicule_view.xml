@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_auto_modele_marque_vehicule_view_list" model="ir.ui.view">
+        <field name="name">assurance.auto.modele.vehicule..list </field>
+        <field name="model">assurfaz.auto.vehicule.modele</field>
+        <field name="arch" type="xml">
+            <tree  > 
+                <field name="marque_id" />   
+                <field name="name" />
+          
+            </tree>
+        </field>
+    </record>
+
+    <!-- modèle de la vue Form -->
+    <record id="assurance_auto_modele_marque_vehicule_view_form" model="ir.ui.view">
+        <field name="name">assurance.auto.modele.vehicule.form</field>
+        <field name="model">assurfaz.auto.vehicule.modele</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="marque_id" required="1"/>
+                        <field name="name"/>
+       
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <!-- <field name="activity_ids"/>  -->
+                    <field name="message_ids"/>
+                </div> 
+            </form>
+        </field>
+    </record> 
+</odoo>
