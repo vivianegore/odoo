@@ -3,6 +3,7 @@ from odoo import fields, models
 class Marque(models.Model):
     _name = 'assurfaz.auto.vehicule.modele'
     _description = 'Modèles de véhicules'
+    _inherit = ['mail.thread']
 
     name = fields.Char(string="Modèle")
    

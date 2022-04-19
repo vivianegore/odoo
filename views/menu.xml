@@ -8,14 +8,14 @@
 
     <!-- CRM -->
       <menuitem id="menu_crm" name="CRM"  
-       
-        parent="assurances.menu_principal_assurfaz" sequence = "1"     
+        sequence = "1" 
+        parent="assurances_app.menu_principal_assurfaz"     
       /> 
 
       <!-- clients -->
       <menuitem id="menu_crm_clients" name="Clients" 
         action="base.action_partner_form"  sequence="2"
-        parent="assurances.menu_crm"
+        parent="assurances_app.menu_crm"
           
       /> 
       <!-- sous menu de Clientts -->
@@ -23,7 +23,7 @@
         <!-- suivi du contact -->
         <menuitem id="menu_crm_clients_suivi_contact" name="Suivi du contact" 
           action="contacts.action_contacts"
-          parent="assurances.menu_crm_clients"
+          parent="assurances_app.menu_crm_clients"
             
         /> 
          
@@ -37,7 +37,7 @@
             <field name="view_mode">tree,form</field>
           </record>
           <!-- menu  pour les assurances auto-->
-          <menuitem id="smenus_assurance_auto" name="Assurance Auto/Moto" parent="assurances.menu_crm_clients" action="action_assurance_auto" />
+          <menuitem id="smenus_assurance_auto" name="Assurance Auto/Moto" parent="assurances_app.menu_crm_clients" action="action_assurance_auto" />
 
           <!-- action  pour les assurances Voyage-->
           <record id="action_assurance_voyage" model="ir.actions.act_window">
@@ -47,7 +47,7 @@
             <field name="view_mode">tree,form</field>
           </record>
           <!-- menu  pour les assurances Voyage-->
-          <menuitem id="smenus_assurance_voyage" name="Assurance Voyage" parent="assurances.menu_crm_clients" action="action_assurance_voyage" />
+          <menuitem id="smenus_assurance_voyage" name="Assurance Voyage" parent="assurances_app.menu_crm_clients" action="action_assurance_voyage" />
 
           <!-- action  pour les assurances habitation-->
           <record id="action_assurance_habitation" model="ir.actions.act_window">
@@ -57,7 +57,7 @@
             <field name="view_mode">tree,form</field>
           </record>
           <!-- menu  pour les assurances habitation-->
-          <menuitem id="smenus_assurance_habitation" name="Assurance Habitation" parent="assurances.menu_crm_clients" action="action_assurance_habitation" />
+          <menuitem id="smenus_assurance_habitation" name="Assurance Habitation" parent="assurances_app.menu_crm_clients" action="action_assurance_habitation" />
 
           <!-- action  pour les assurances Santé-->
           <record id="action_assurance_sante" model="ir.actions.act_window">
@@ -67,7 +67,7 @@
             <field name="view_mode">tree,form</field>
           </record>
           <!-- menu  pour les assurances Santé-->
-          <menuitem id="smenus_assurance_sante" name="Assurance Santé" parent="assurances.menu_crm_clients" action="action_assurance_sante" />
+          <menuitem id="smenus_assurance_sante" name="Assurance Santé" parent="assurances_app.menu_crm_clients" action="action_assurance_sante" />
 
           <!-- action  pour les assurances Vie-->
           <record id="action_assurance_vie" model="ir.actions.act_window">
@@ -77,19 +77,19 @@
             <field name="view_mode">tree,form</field>
           </record>
           <!-- menu  pour les assurances Vie-->
-          <menuitem id="smenus_assurance_vie" name="Assurance Vie" parent="assurances.menu_crm_clients" action="action_assurance_vie" />
+          <menuitem id="smenus_assurance_vie" name="Assurance Vie" parent="assurances_app.menu_crm_clients" action="action_assurance_vie" />
       
       <!-- contrats -->
       <menuitem id="menu_crm_contrat" name="Contrats" 
         action="sale.action_quotations_with_onboarding"  
-        parent="assurances.menu_crm"
+        parent="assurances_app.menu_crm"
           
       /> 
 
       <!-- facturation -->
       <menuitem id="menu_crm_facturation" name="Facturation" 
         action="account.action_move_out_invoice_type"  
-        parent="assurances.menu_crm"
+        parent="assurances_app.menu_crm"
           
       /> 
               
@@ -99,36 +99,36 @@
 
      <!-- Stock -->
       <menuitem id="menu_stock" name="Stock" 
-        action="stock.stock_picking_type_action" 
-        parent="assurances.menu_principal_assurfaz"
+        action="stock.stock_picking_type_action"  sequence="2"
+        parent="assurances_app.menu_principal_assurfaz"
           
       /> 
 
       <menuitem id="menu_stock_attestation" name="Attestations" 
         action="stock.action_stock_scrap" sequence="2"
-        parent="assurances.menu_stock"
+        parent="assurances_app.menu_stock"
           
       /> 
 
       <menuitem id="menu_stock_article" name="Articles" 
         action="stock.product_template_action_product" sequence="3"
-        parent="assurances.menu_stock"
+        parent="assurances_app.menu_stock"
           
       /> 
 
       <menuitem id="menu_stock_entrepot" name="Magasins" 
         action="stock.action_warehouse_form" sequence="4"
-        parent="assurances.menu_stock"
+        parent="assurances_app.menu_stock"
           
       /> 
       <menuitem id="menu_stock_emplacemant" name="Emplacements" 
         action="stock.action_location_form" sequence="5"
-        parent="assurances.menu_stock"
+        parent="assurances_app.menu_stock"
           
       /> 
       <menuitem id="menu_stock_transfert" name="Transferts" 
         action="stock.action_picking_tree_all" sequence="6"
-        parent="assurances.menu_stock"
+        parent="assurances_app.menu_stock"
           
       /> 
 
@@ -141,12 +141,176 @@
         <field name="res_model">assurfaz.sinistre</field>
         <field name="view_mode">tree,form</field>
       </record>
+    <!-- action  pour les modèles de déclaration des sinistres pour les clients Entreprise-->
+      <record id="action_assurance_sinistre_entreprise_automobile" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres Automobile, Moto</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.entreprise.automobile</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      <record id="action_assurance_sinistre_entreprise_responsabilite" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres Responsabilité pour les Entreprises </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.entreprise.responsabilite</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+              bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      <record id="action_assurance_sinistre_entreprise_technique" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres Assurance technique, Assurance de chose,Bâtiment, Construction, Garantie de loyer </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.entreprise.technique</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+              bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      
+       <record id="action_assurance_sinistre_entreprise_autre" model="ir.actions.act_window">
+        <field name="name">Déclaration des autres sinistres  </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.entreprise.autre</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+              bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+
+      <!-- action  pour les modèles de déclaration des sinistres pour les clients Particulier -->
+      <record id="action_assurance_sinistre_particulier_responsabilite" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres Responsabilite civile pour les particuliers </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.particulier.responsabilite</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      
+      <record id="action_assurance_sinistre_particulier_accident" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres Accident pour les particuliers </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.particulier.accident</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      
+      <record id="action_assurance_sinistre_particulier_paiement" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres Protection de paiement </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.particulier.paiement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+
     <!-- menu  pour les modèles de gestion des sinistres -->
     <menuitem id="smenu_assurance_sinistre" name="Sinistres" parent="menu_principal_assurfaz"  sequence="3"/>
 
-    <!-- menu  pour les modèles de gestion des sinistres -->
-    <menuitem id="smenu_assurance_sinistre_sous" name="Sinistres" parent="smenu_assurance_sinistre" action ="action_assurance_sinistre" />
+     <!-- menu  pour les modèles de déclaration des sinistres -->
+    <menuitem id="smenu_assurance_sinistre_entreprise" name="Clients Entreprise"   parent="assurances_app.smenu_assurance_sinistre"/>
+    <menuitem id="smenu_assurance_sinistre_particulier" name="Clients Particulier"   parent="assurances_app.smenu_assurance_sinistre"/>
 
+    <!-- Sous menu client entreprise -->
+        <menuitem id="smenu_assurance_sinistre_entreprise_automobile" name="Assurance automobile" 
+          action="action_assurance_sinistre_entreprise_automobile" sequence="1"
+          parent="assurances_app.smenu_assurance_sinistre_entreprise"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_entreprise_responsabilite" name="Responsabilité civile d’entreprise / responsabilité civile professionnelle" 
+          action="action_assurance_sinistre_entreprise_responsabilite"
+          parent="assurances_app.smenu_assurance_sinistre_entreprise"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_entreprise_technique" name="Assurance technique" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances_app.smenu_assurance_sinistre_entreprise"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_entreprise_chose" name="Assurance de choses" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances_app.smenu_assurance_sinistre_entreprise"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_entreprise_autre" name="Autres sinistres" 
+          action="action_assurance_sinistre_entreprise_autre"
+          parent="assurances_app.smenu_assurance_sinistre_entreprise"
+            
+        />
+
+        <!-- Sous menu client particulier -->
+        <menuitem id="smenu_assurance_sinistre_particulier_voiture" name="Voiture" 
+          action="action_assurance_sinistre_entreprise_automobile"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        
+        <menuitem id="smenu_assurance_sinistre_particulier_responsabilite" name="Responsabilité civile privée / Dommage locataire" 
+          action="action_assurance_sinistre_particulier_responsabilite"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_batiment" name="Bâtiment" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_accident" name="Accident" 
+          action="action_assurance_sinistre_particulier_accident"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_construction" name="Construction" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_moto" name="Moto" 
+          action="action_assurance_sinistre_entreprise_automobile"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_garantie" name="Garantie de loyer" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_objet" name="Objets de valeur" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_paiement" name="Protection des paiements" 
+          action="action_assurance_sinistre_particulier_paiement"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_autre_sinistre" name="Autres sinistres" 
+          action="action_assurance_sinistre_entreprise_autre"
+          parent="assurances_app.smenu_assurance_sinistre_particulier"
+            
+        /> 
 
 
   <!-- Gestion des primes-->

@@ -1,6 +1,7 @@
-
-from odoo import fields,models
-
+from odoo import fields,models,api,_
+from dateutil.relativedelta import *
+import datetime
+from odoo.exceptions import  UserError
      
 class AssuranceVoyage(models.Model):
     _name = 'assurfaz.voyage'
@@ -8,8 +9,6 @@ class AssuranceVoyage(models.Model):
     _description = 'Assurance Voyage'
   
 
-   
-    
     #passager
     pays_origine = fields.Char("Pays d'origine")
     pays_destination = fields.Selection([('senegal','Sénégal'),('ivoire','Côte d\'ivoire')],
@@ -24,7 +23,7 @@ class AssuranceVoyage(models.Model):
 
     #Infos passagers
     date_naissance = fields.Date("Date de naissance du passager")
-    age_passager = fields.Integer("Âge du passager")
+    age_passager = fields.Char("Âge du passager", compute="_get_passager_age")
 
     #Bénéficiaire
     name = fields.Many2one('res.partner',string="Nom du bénéficiaire",copy=False)
@@ -48,9 +47,9 @@ class AssuranceVoyage(models.Model):
         default='nouvelle'
     )
     #periode de couverture
-    duree_garantie= fields.Integer('Durée de la garantie en jours')
-    date_effet = fields.Date("Date d'effet")
-    date_echeance = fields.Date("Date d'échéance")
+    duree_garantie= fields.Integer('Durée de la garantie en jours', compute="_get_duree_garantie")
+    
+    date_echeance = fields.Date("Date d'échéance", )
 
     #Modalités de remboursement
     modalite_remboursement= fields.Selection([('remboursable','Remboursable'),
@@ -58,4 +57,53 @@ class AssuranceVoyage(models.Model):
         string= 'Modalités de remboursement',
         default='nonremboursable'
     )
-  
+
+    @api.depends("date_naissance")
+    def _get_passager_age(self):
+        today_date = datetime.date.today()
+        for pas in self:
+            if pas.date_naissance:
+                date_naissance = fields.Datetime.to_datetime( pas.date_naissance).date()
+                age = str(int((today_date - date_naissance).days / 365))
+                pas.age_passager = age + " ans"
+            return pas.age_passager
+               
+           
+
+    @api.depends("date_depart","date_retour")
+    def _get_duree_garantie(self):
+        for dur in self:
+            if dur.date_depart:
+                if dur.date_retour:
+                    date_depart = fields.Datetime.to_datetime(dur.date_depart).date()
+                    date_retour = fields.Datetime.to_datetime(dur.date_retour).date()
+                    duree = int((date_retour - date_depart).days)
+                    dur.duree_garantie = duree 
+            return dur.duree_garantie
+
+
+    @api.onchange("duree_garantie","date_depart")
+    def onchange_date_echeance(self):
+        date_depart= str(self.date_depart)
+        if self.duree_garantie:
+            date_depart = datetime.datetime.strptime(date_depart, "%Y-%m-%d")
+            date_echeance = date_depart + relativedelta(days=self.duree_garantie) 
+            self.date_echeance  = date_echeance.strftime("%Y-%m-%d")
+
+    def action_valide(self):
+        for rec in self:
+            rec.state = 'validee'
+
+    def action_retour(self):
+        for rec in self:
+            rec.state = 'nouvelle'
+
+    
+    def action_accepte(self):
+        for rec in self:
+            rec.state = 'acceptee'
+
+    def action_refuse(self):
+        for rec in self:
+            rec.state = 'refusee'
+

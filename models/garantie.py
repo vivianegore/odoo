@@ -3,6 +3,7 @@ from odoo import fields, models
 class Garantie(models.Model):
     _name = 'assurfaz.auto.garantie'
     _description = 'Garanties'
+    _inherit = ['mail.thread']
 
     garantie = fields.Selection([('pack','Packs'),('carte','A la carte')])
     garantie_list = fields.Selection([('civile','Pack Responsabilite civile(RC)'),

@@ -3,6 +3,7 @@ from odoo import fields,models
      
 class AssuranceHabitation(models.Model):
     _name = 'assurfaz.habitation'
+    _inherit = ['mail.thread']
     _description = 'Assurance Habitation'
   
 
@@ -63,4 +64,18 @@ class AssuranceHabitation(models.Model):
     date_effet = fields.Date("Date d'effet")
     date_echeance = fields.Date("Date d'échéance")
 
-    
+    def action_valide(self):
+        for rec in self:
+            rec.state = 'validee'
+
+    def action_retour(self):
+        for rec in self:
+            rec.state = 'nouvelle'
+
+    def action_accepte(self):
+        for rec in self:
+            rec.state = 'acceptee'
+
+    def action_refuse(self):
+        for rec in self:
+            rec.state = 'refusee' 

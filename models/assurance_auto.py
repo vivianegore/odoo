@@ -12,7 +12,7 @@ class AssuranceAuto(models.Model):
 
    
 
-    @api.onchange("duree_garantie","date_effet")
+    @api.onchange('duree_garantie','date_effet')
     def onchange_date_echeance(self):
         date_effet= str(self.date_effet)
         if self.date_effet:
@@ -60,27 +60,26 @@ class AssuranceAuto(models.Model):
 
     carte_grise = fields.Binary(string="Carte grise")
     
+    def action_valide(self):
+        for rec in self:
+            rec.state = 'validee'
 
-    def notification_send(self):
-        notification_ids=[]
-        if self.env.user:
-            notification_ids.append((0,0,{
-                    'res_partner_id': self.env.user.partner_id.id,
-                    'notification_type' : 'inbox'
-   
-            }))
+    def action_retour(self):
+        for rec in self:
+            rec.state = 'nouvelle'
 
-            self.env['mail.message'].create({
+    def action_accepte(self):
+        for rec in self:
+            rec.state = 'acceptee'
 
-                'message_type':"notification",
-                'body': "Message",
-                'subject': "Message subject",
-                'model': self._name,
-                'res_id':self.id,
-                'partner_ids': [self.env.user.partner_id.id],
-                'author_id': self.env.user.partner_id.id,
-                'notification_ids': notification_ids,
-            })
+    def action_refuse(self):
+        for rec in self:
+            rec.state = 'refusee' 
+
+
+
+
+    
            
 
 

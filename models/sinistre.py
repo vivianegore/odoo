@@ -3,6 +3,7 @@ from odoo import fields, models
 
 class Sinistre(models.Model):
     _name = 'assurfaz.sinistre'
+    _inherit = ['mail.thread']
     _description = 'Déclaration de sinistres'
     _rec_name = 'type_client'
 
@@ -21,7 +22,7 @@ class Sinistre(models.Model):
         ('responsabilite','Responsabilité civile privée / Dommage locataire'),
         ('batiment','Bâtiment '),('accident','Accident'),
         ('construction','Construction'),('moto','Moto '),('garantie','Garantie de loyer '),
-        ('lunette','Lunettes ou appareils auditifs '), ('bateau','Bâteau '),
+        ('lunette','Lunettes ou appareils auditifs '),
         ('objet','Objets de valeur'),
         ('paiement','Protection des paiements '),('autre','Autres sinistres')],
         string = "Type du sinistre", default = 'voiture'
@@ -46,15 +47,15 @@ class Sinistre(models.Model):
         string = "De quel dommage s’agit-il?" , default = 'cambriolage'
     )
     sinistre_menage_smartphone = fields.Selection([('vole','Mon smartphone a été volé'),
-        ('perdu ','J\'ai perdu mon smartphone')],
+        ('perdu','J\'ai perdu mon smartphone')],
         string = "Racontez-nous ce qui s’est passé..." , default = 'perdu'
     )
     sinistre_menage_velo = fields.Selection([('vole','Mon vélo a été volé'),
-        ('perdu ','J\'ai perdu mon vélo')],
+        ('perdu','J\'ai perdu mon vélo')],
         string = "Racontez-nous ce qui s’est passé..." , default = 'perdu'
     )
     sinistre_menage_cambriolage = fields.Selection([('vole','J\'ai été volé(e)'),
-        ('perdu ','J\'ai perdu quelque chose')],
+        ('perdu','J\'ai perdu quelque chose')],
         string = "Racontez-nous ce qui s’est passé..." , default = 'perdu'
     )
     autre_dommage_menage = fields.Char("Autre dommage")
@@ -82,7 +83,7 @@ class Sinistre(models.Model):
     appareil_endommage = fields.Selection([('smartphone','Smartphone'),
         ('tablette','Tablette')], string="Qu’est-ce qui a été endommagé? ", default = 'smartphone'
     )
-    marque = fields.Selection([ ('apple','Apple'),('samsung','Samsung'),   
+    marque_appareil = fields.Selection([ ('apple','Apple'),('samsung','Samsung'),   
         ('huawei','Huawei'),('lg','LG'),
         ('nokia','Nokia'),('sony','Sony'),
         ('autre','Autre marque/fabricant')],
@@ -130,8 +131,14 @@ class Sinistre(models.Model):
     )
     marque = fields.Char("Marque/Type")
     plaque_controle = fields.Char("Plaque de contrôle")
+    marque_autre_vehicule = fields.Char("Marque/Type")
+    plaque_controle_autre_vehicule = fields.Char("Plaque de contrôle")
     dommage = fields.Html("Quel dommage a été causé?")
     prix_dommage =fields.Selection([('500000','< 500 000CFA'),
+        ('1000000','> 1000 000CFA'), ('entre','500 000 CFA et  1000 000CFA')], 
+        string="A combien estimez-vous le dommage?"
+    )
+    prix_dommage_chose =fields.Selection([('500000','< 500 000CFA'),
         ('1000000','> 1000 000CFA'), ('entre','500 000 CFA et  1000 000CFA')], 
         string="A combien estimez-vous le dommage?"
     )
@@ -149,20 +156,21 @@ class Sinistre(models.Model):
     description_chose = fields.Html("Quelles choses emportées dans votre véhicule ont été endommagées?")
 
     #si on choisit une personne que vous ne connaissez pas 
-    name = fields.Char("Nom ")
-    pname = fields.Char("Prénom ")
-    adresse = fields.Char("Adresse")
-    email = fields.Char("Adresse email")
-    pays = fields.Char("Pays")
+    name_conducteur= fields.Char("Nom ")
+    pname_conducteur = fields.Char("Prénom ")
+    adresse_conducteur = fields.Char("Adresse")
+    email_conducteur = fields.Char("Adresse email")
+    pays_conducteur = fields.Char("Pays")
     date_naissance = fields.Date("Date de naissance ")
     date_permis = fields.Char("Permis de conduire délivré le ")
 
     #décrire le déroulement du sinistre : Vous êtes éventuellement en possession de photos relatives au dommage. Veuillez les conserver, elles pourront être utilisées par la suite.
     description_sinistre = fields.Html("Veuillez décrire le déroulement")
-
+    pays_personne= fields.Char("Pays")
+    ville_personne= fields.Char("Ville")
     # Où et quand les faits se sont-ils passés?
     date_fait = fields.Date ("Quand le sinistre s’est-il produit?")
-    localite = fields.Char("Localité")
+    localite_sinistre = fields.Char("Localité")
 
     #Selon vous, êtes-vous responsable de l'accident?
     responsable_accident = fields.Selection([('oui','Oui'),
@@ -180,11 +188,17 @@ class Sinistre(models.Model):
     presentation = fields.Selection([('conseiller','Conseiller en assurance ou courtier'),
         ('autre','Autre personne')], string="Vous êtes... "
     )
+    name = fields.Char("Nom ")
+    pname= fields.Char("Prénom ")
+    adresse = fields.Char("Adresse")
+    email = fields.Char("Adresse email")
+    npa = fields.Char("NPA")
+    
     #conseiller
     entreprise = fields.Char("Entreprise ")
     #autre
     telephone = fields.Char("Numéro de téléphone")
-    npa = fields.Char("NPA")
+    npa_preneur = fields.Char("NPA")
 
     #Quel est le numéro de police?
     numero_police = fields.Char("Numéro de police")
@@ -193,7 +207,7 @@ class Sinistre(models.Model):
     formule_appel = fields.Selection([('madame','Madame'),
         ('monsieur','Monsieur'),('entreprise','Entreprise')], string="Formule d'appel " , default="monsieur"
     )
-    civilité = fields.Selection([('madame','Madame'),
+    civilite = fields.Selection([('madame','Madame'),
         ('monsieur','Monsieur')], string="Civilité", default="monsieur"
     )
     # si entreprise est sélectionné, en plus de son formulaire on ajoute une Personne de contact
@@ -205,11 +219,12 @@ class Sinistre(models.Model):
         string = "Quel dommage a été causé?" , default = 'fortune'
     )
     #où est survenu le sinistre et quand? : date, localité, pays 
+    pays_sinistre= fields.Char("Pays")
     appartenance_medicale =  fields.Selection([('oui','Oui'),
         ('non','Non')], string="Appartenez vous à un groupe professionnel soumis au secret médical?",default = 'non'
     )
     disposition =  fields.Selection([('oui','Oui'),
-        ('non','Non')], string="Disposez-vous d\'une libération de l\'obligation de garder le secret médical vis-à-vis de Assurfaz?",default = 'oui'
+        ('non','Non')], string="Disposez-vous d\'une libération de l'obligation de garder le secret médical vis-à-vis de Assurfaz?",default = 'oui'
     )
     raison_déclaration = fields.Selection([('confrontation','Confrontation par la patiente ou le patient'),
         ('avocat','Confrontation par l\'avocate/l\'avocat/l\'assurance de protection juridique'),
@@ -221,7 +236,8 @@ class Sinistre(models.Model):
         ('animal','Animal')], string="le cas concerne-t-il une personne ou un animal?",default = 'personne'
     )
     reproche = fields.Selection([('erreur','Erreur de diagnostic'),
-        ('traitement','Traitement inapproprié'),('information','Information insuffisante'),('autre','Inconnu/autre')], string="A quel reproche avez-vous dû faire face?",default = 'pas'
+        ('traitement','Traitement inapproprié'),('information','Information insuffisante'),('autre','Inconnu/autre')], string="A quel reproche avez-vous dû faire face?",
+        default = 'information'
     )
     animal_race = fields.Char("De quel animal s'agit-il?")
     responsable_sinistre = fields.Selection([('oui','Oui'),
@@ -244,6 +260,9 @@ class Sinistre(models.Model):
         ('autre','Autre personne dans l\'entreprise'),('personne','Autre personne(extérieure à l\'entreprise)')], string="Qui a causé le dommage?",default = 'preneur'
     )
     #si responsable_dommage == autre afficher nom,prénom,fonction,téléphone sinon si la valeur est personne afficher qui a causé le dommage et pourquoi?
+    nom_responsable_dommage = fields.Char("Nom du responsable du dommage")
+    pnom_responsable_dommage = fields.Char("Prénom du responsable du dommage")
+    telephone_responsable_dommage = fields.Char("Téléphone du responsable du dommage")
     fonction = fields.Char("Fonction dans l'entreprise")
     personne = fields.Html("Qui a causé le dommage et pourquoi?")
 
@@ -251,8 +270,14 @@ class Sinistre(models.Model):
     presentation = fields.Selection([('preneur','Preneur/preneuse d\'assurance'),('conseiller','Conseiller/consillère en assurance ou courtier/courtière'),
         ('autre','Autre personne')], string="Vous êtes... ", default='autre'
     )
+    localite = fields.Char("Localité")
     #affichez les infos numero_police, nom,pnom,localite,npa,lieu,paays,telephone, email,civilité
-
+    npa_personne = fields.Char("NPA")
+    email_personne = fields.Char("Email")
+    localite_personne = fields.Char("Localité")
+    telephone_personne = fields.Char("Téléphone")
+    name_personne = fields.Char("Nom")
+    pname_personne = fields.Char("Prénom")
     #type_sinistre_entreprise = technique
     #date, localité, pays
     #description_sinistre
@@ -322,9 +347,10 @@ class Sinistre(models.Model):
     )
     # si courtier ou autre : entreprise, nom, telephone à afficher
     #Lésé: coordonnées du bailleur
-    titre = fields.Selection([('particulier','Particulier'),('entreprise','Entreprise')],
-        string="Statut", default = 'particulier'
+    titre = fields.Selection([('personnel','Particulier'),('societe','Entreprise')],
+        string="Statut", default = 'personnel'
     )
+    
     # particulier: nom, pnom, telephone, npa, lieu, email, numero
     #entreprise: entreprise, telephone, npa , lieu, email, numero
     numero = fields.Char("Numéro")
@@ -373,7 +399,7 @@ class Sinistre(models.Model):
     )
     compagnie = fields.Selection([('assurfaz','ASSURFAZ'),
         ('autre','Autre')],
-        string="Auprès de quelle compagnie?" , default='oui'
+        string="Auprès de quelle compagnie?" , default='assurfaz'
     )
     #si autre, nom de la compagnie est renseignée
     compagnie_name = fields.Char("Compagnie")
@@ -382,6 +408,12 @@ class Sinistre(models.Model):
         string="Qui conduisait le véhicule?" , default='preneur'
     )
     personne_menage = fields.Boolean("La personne fait partie de mon ménage")
+    nom_autre = fields.Char("Nom")
+    pnom_autre = fields.Char("Prénom")
+    npa_autre = fields.Char("NPA")
+    email_autre = fields.Char("Email")
+    localite_autre = fields.Char("Localité")
+    telephone_autre = fields.Char("Localité")
     #prenom,nom,date_naissance, personne_menage, numero, npa, lieu, telephone
     #Lésé: coordonnées du bailleur
 
@@ -400,7 +432,7 @@ class Sinistre(models.Model):
     type_batiment = fields.Selection([('immeuble','Immeuble locatif'),
         ('maison','Maison individuelle'),('hotel','Hôtel'),
        ('autre','Autre')],
-        string = "De quel type de bâtiment s'agit-il?" , default='batiment'
+        string = "De quel type de bâtiment s'agit-il?" , default='hotel'
     )
     type_objet = fields.Selection([('telephone','Téléphone mobile/tablette'),
         ('televiseur','Téleviseur'),('ordinateur','Ordinateur/ ordinateur portable'),
@@ -441,9 +473,15 @@ class Sinistre(models.Model):
     #entreprise : nom de l'entreprise
     filiale = fields.Char("Filiale/service")
     personne_contact = fields.Char("Personne de contact")
+    npa_societe = fields.Char("NPA")
+    email_societe = fields.Char("Email")
+    localite_societe = fields.Char("Localité")
+    telephone_societe = fields.Char("Téléphone")
     #npa , lieu, telephone, email
     #Coordonnées de paiement(IBAN)
     coordonnee_paiement = fields.Char("Coordonnées de paiement(IBAN)")
+    coordonnee_paiement_personne = fields.Char("Coordonnées de paiement(IBAN)")
+
 
     #Personne assurée
     #civilité, nom, pnom
@@ -546,6 +584,10 @@ class Sinistre(models.Model):
 
     #type_sinistre_particulier == paiement
     #même formulaire que responsabilité 
+    nom_entreprise = fields.Char("Nom de l'entreprise")
+    nom_compagnie = fields.Char("Nom de l'entreprise")
+    entreprise_nom = fields.Char("Nom de l'entreprise")
+
 
     #type_sinistre_particulier == lunette
     #même formulaire que l'assurance technique sauf  nom_agent,cas
@@ -585,3 +627,21 @@ class Sinistre(models.Model):
     
     #type_sinistre_particulier == voyage
     #même formulaire que l'assurance technique sauf  nom_agent,cas
+
+    state = fields.Selection([('cours','En cours'),
+        ('traite','Traitée'),('rejete','Rejetée')],
+        default='cours'
+    )
+
+   
+    def action_traite(self):
+        for rec in self:
+            rec.state = 'traite'
+
+    def action_retour(self):
+        for rec in self:
+            rec.state = 'cours'
+    
+    def action_rejete(self):
+        for rec in self:
+            rec.state = 'rejete'
