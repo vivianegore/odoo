@@ -24,15 +24,17 @@
                        
                     />
                     <button id="button_cancel" name="action_retour" string="Annuler" class="oe_light" type="object" attrs="{'invisible': [('state', 'not in', ['validee','acceptee','refusee'])]}"/> 
-                    <button id="button_accept" name="action_accepte" string="Accepter" class="oe_light" type="object"/>   
+                    <button id="button_accept" name="action_accepte" string="Accepter" class="oe_light" type="object" attrs="{'invisible': [('state','=', 'acceptee')]}"/>   
                     <button id="button_refuse" name="action_refuse" string="Refuser" class="oe_light" type="object" /> 
                     <field name="state" widget="statusbar"  statusbar_visible="nouvelle,validee,acceptee,refusee" attrs="{'required': True}" />
                 </header>
                 <sheet>
                     <group>
                         <field name="name" required="1"/> 
-                            
+                        <field name="mtant_total" /> 
+                        
                     </group>
+                   
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids"/>

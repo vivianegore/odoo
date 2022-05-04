@@ -9,11 +9,10 @@
                  
                     
                 <xpath expr="//notebook" position="before">
-                     <div>
-                          <group string="Assurance">
-                                
+                        <div>
+                          <group string="Assurance"> 
                                 <field name="statut" />
-                                <field name="produit_assurance_ids" widget="many2many_tags" />
+                                <field name="produit_assurance_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" />
                             </group>
                         </div>    
                 </xpath>     

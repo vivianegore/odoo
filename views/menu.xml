@@ -99,35 +99,35 @@
 
      <!-- Stock -->
       <menuitem id="menu_stock" name="Stock" 
-        action="stock.stock_picking_type_action"  sequence="2"
+          sequence="2"
         parent="assurances_app.menu_principal_assurfaz"
           
       /> 
 
       <menuitem id="menu_stock_attestation" name="Attestations" 
-        action="stock.action_stock_scrap" sequence="2"
+        action="account.action_move_out_invoice_type"  sequence="2"
         parent="assurances_app.menu_stock"
           
       /> 
 
       <menuitem id="menu_stock_article" name="Articles" 
-        action="stock.product_template_action_product" sequence="3"
+        action="stock.product_template_action_product"   sequence="3"
         parent="assurances_app.menu_stock"
           
       /> 
 
       <menuitem id="menu_stock_entrepot" name="Magasins" 
-        action="stock.action_warehouse_form" sequence="4"
+         action="stock.action_warehouse_form"  sequence="4"
         parent="assurances_app.menu_stock"
           
       /> 
       <menuitem id="menu_stock_emplacemant" name="Emplacements" 
-        action="stock.action_location_form" sequence="5"
+         action="stock.action_location_form"  sequence="5"
         parent="assurances_app.menu_stock"
           
       /> 
       <menuitem id="menu_stock_transfert" name="Transferts" 
-        action="stock.action_picking_tree_all" sequence="6"
+         action="stock.action_picking_tree_all"  sequence="6"
         parent="assurances_app.menu_stock"
           
       /> 
@@ -315,17 +315,25 @@
 
   <!-- Gestion des primes-->
     <!-- action  pour les modèles de gestion des primes-->
-      <record id="action_assurance_prime" model="ir.actions.act_window">
-        <field name="name">Gestion des primes</field>
+    <record id="action_assurance_prime" model="ir.actions.act_window">
+        <field name="name">Gestion de prime</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">assurfaz.prime</field>
         <field name="view_mode">tree,form</field>
-      </record> 
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             bienvenue! Créez ici votre première prime !
+          </p>
+        </field>
+    </record>
+
+    
+     
     <!-- menu  pour les modèles de gestion des primes -->
     <menuitem id="smenu_assurance_prime" name="Primes" parent="menu_principal_assurfaz"  sequence="4"/> 
 
     <!-- menu  pour les modèles de gestion des primes -->
-    <menuitem id="smenu_assurance_prime_sous" name="Primes" parent="smenu_assurance_prime" action ="action_assurance_prime" /> 
+     <menuitem id="smenu_assurance_prime_sous" name="Primes" parent="smenu_assurance_prime" action ="action_assurance_prime" />  
 
 
     <!-- menu  pour Paramètre-->
@@ -342,7 +350,6 @@
     <menuitem id="smenus_assurance_auto_parametres_marque" name="Marques de véhicules" parent="smenu_assurance_auto_parametre" action ="action_assurance_auto_vehicule_marque" sequence="1"/>
 
 
-
     <!-- action  pour les modèles de véhicules-->
       <record id="action_assurance_auto_vehicule_modele" model="ir.actions.act_window">
         <field name="name">Modèles de véhicules</field>
@@ -352,5 +359,8 @@
       </record>
     <!-- menu  pour les modèles de véhicules -->
     <menuitem id="smenus_assurance_auto_parametres_modele" name="Modèles de véhicules" parent="smenu_assurance_auto_parametre" action = "action_assurance_auto_vehicule_modele" sequence="2"/>
+
+
+    
 
 </odoo>  

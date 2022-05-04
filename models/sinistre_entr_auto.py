@@ -14,11 +14,11 @@ class SinistreEntrepriseAutomobile(models.Model):
     #type_sinistre_particulier == automobiles
     #demande d'information
     info = fields.Selection([('oui','Oui'),
-        ('non','Non')], string="Quelqu'un a-til été blessé?", default = 'non'
+        ('non','Non')], string="Quelqu'un a-til été blessé?", default = 'oui'
     )
     blessure_description = fields.Html("Décrivez la blessure")
     info2 = fields.Selection([('oui','Oui'),
-        ('non','Non')], string="Votre véhicule a-t-il été endommagé?",default = 'non'
+        ('non','Non')], string="Votre véhicule a-t-il été endommagé?",default = 'oui'
     )
     marque = fields.Char("Marque/Type")
     plaque_controle = fields.Char("Plaque de contrôle")
@@ -35,13 +35,13 @@ class SinistreEntrepriseAutomobile(models.Model):
     )
     conducteur = fields.Selection([('vous','Vous-même'),
         ('connaissance','Une connaissance'), ('autre','Une personne que vous ne connaissez pas')], 
-        string="Qui conduisait le véhicule?"
+        string="Qui conduisait le véhicule?", default = 'autre'
     )
     accident = fields.Selection([('oui','Oui'),
-        ('non','Non')], string="Un autre véhicule a-t-il été endommagé?",default = 'non'
+        ('non','Non')], string="Un autre véhicule a-t-il été endommagé?",default = 'oui'
     )
     chose_endommage = fields.Selection([('oui','Oui'),
-        ('non','Non')], string="Des choses emportées dans votre véhicule ont-elles été endommagées?",default = 'non'
+        ('non','Non')], string="Des choses emportées dans votre véhicule ont-elles été endommagées?",default = 'oui'
     )
     #si oui : 
     description_chose = fields.Html("Quelles choses emportées dans votre véhicule ont été endommagées?")
@@ -67,10 +67,10 @@ class SinistreEntrepriseAutomobile(models.Model):
 
     #Selon vous, êtes-vous responsable de l'accident?
     responsable_accident = fields.Selection([('oui','Oui'),
-        ('non','Non')], string="Selon vous, êtes-vous responsable de l'accident?",default = 'non'
+        ('non','Non')], string="Selon vous, êtes-vous responsable de l'accident?",default = 'oui'
     )
     dommage_declare = fields.Selection([('oui','Oui'),
-        ('non','Non')], string="Le dommage a-t-il été déclaré à la police?",default = 'non'
+        ('non','Non')], string="Le dommage a-t-il été déclaré à la police?",default = 'oui'
     )
     declaration_police = fields.Html("Auprès de quel poste de police?")
     
@@ -79,7 +79,7 @@ class SinistreEntrepriseAutomobile(models.Model):
     )
     #si non
     presentation_personne = fields.Selection([('conseiller','Conseiller en assurance ou courtier'),
-        ('autre','Autre personne')], string="Vous êtes... "
+        ('autre','Autre personne')], string="Vous êtes... ", default='autre'
     )
     name = fields.Char("Votre nom ")
     pname= fields.Char("Votre prénom ")

@@ -11,4 +11,4 @@ class TypeAssurance(models.Model):
     ('Assurance vie','vie')], 
         string ="Produits d'assurance"
     )  
-   
+    color = fields.Integer('color index')

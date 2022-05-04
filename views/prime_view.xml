@@ -1,36 +1,34 @@
 <?xml version="1.0"?>
 <odoo>
-    <!-- modèle de la vue list-->
-    <record id="assurance_prime_view_list" model="ir.ui.view">
-        <field name="name">assurance.prime.list </field>
+    <!-- modèle de la vue list -->
+     <record id="assurance_prime_view_list" model="ir.ui.view">
+        <field name="name">assurance.prime.list</field>
         <field name="model">assurfaz.prime</field>
         <field name="arch" type="xml">
-            <tree  >    
-                <field name="name" />  
-                       
+            <tree  edit="0" create="0" >
+
+                <field name="reference_prime" />
+                <field name="prime" />
+                <field name="date_creation" /> 
+                   
             </tree>
         </field>
-    </record>
+    </record> 
 
-    <!-- modèle de la vue Form -->
      <record id="assurance_prime_view_form" model="ir.ui.view">
         <field name="name">assurance.prime.form</field>
         <field name="model">assurfaz.prime</field>
         <field name="arch" type="xml">
-            <form>
+            <form  edit="0" create="0">
                 <sheet>
                     <group>
-                        <field name="name" required="1"/> 
-                            
-                    </group>
+                        <field name="reference_prime" />
+                        <field name="prime" />
+                        <field name="date_creation" /> 
+                    </group> 
                 </sheet>
-
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <!-- <field name="activity_ids"/>  -->
-                    <field name="message_ids"/>
-                </div> 
             </form>
         </field>
     </record> 
+
 </odoo>

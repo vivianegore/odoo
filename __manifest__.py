@@ -1,5 +1,5 @@
 {
-'name': 'ASSURFAZ',
+'name': 'Assurfaz',
 'version' : '1.1',
 'sequence': '1',
 'description': 'gestion pour les compagnies d’assurance et courtiers en assurance',
@@ -34,6 +34,7 @@
 'views/sinistre_particulier_paiement.xml',
 'views/sinistre_particulier_responsabilite.xml',
 'views/sinistre_particulier_accident.xml',
+
 ],
 'installable': True,
 'application': True,

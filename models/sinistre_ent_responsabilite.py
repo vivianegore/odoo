@@ -50,7 +50,7 @@ class SinistreEntrepriseResponsabilite(models.Model):
     )
     type_blessure_personne = fields.Html("Quelles blessures la personne a-t-elle subies")
     responsable_dommage = fields.Selection([('preneur','Preneur d\'assurance'),
-        ('autre','Autre personne dans l\'entreprise'),('personne','Autre personne(extérieure à l\'entreprise)')], string="Qui a causé le dommage?",default = 'preneur'
+        ('autre','Autre personne dans l\'entreprise'),('personne','Autre personne(extérieure à l\'entreprise)')], string="Qui a causé le dommage?",default = 'autre'
     )
     #si responsable_dommage == autre afficher nom,prénom,fonction,téléphone sinon si la valeur est personne afficher qui a causé le dommage et pourquoi?
     nom_responsable_dommage = fields.Char("Nom du responsable du dommage")
