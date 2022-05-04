@@ -18,7 +18,6 @@
 'views/marque_vehicule_view.xml',
 'views/modele_marque_vehicule_view.xml',
 'views/prime_view.xml',
-'views/sinistre_view.xml',
 'views/assurance_voyage_view.xml',
 'views/assurance_habitation_view.xml',
 'views/assurance_sante_view.xml',
@@ -29,6 +28,14 @@
 'views/tableau_bord_prime_view.xml',
 'views/res_partner.xml',
 'views/type_assurance_view.xml',
+'views/sinistre_entreprise_automobile.xml',
+'views/sinistre_entreprise_autre.xml',
+'views/sinistre_entreprise_responsabilite.xml',
+'views/sinistre_entreprise_technique.xml',
+'views/sinistre_particulier_accident.xml',
+'views/sinistre_particulier_responsabilite.xml',
+'views/sinistre_particulier_paiement.xml',
+
 ],
 
 'assets': {

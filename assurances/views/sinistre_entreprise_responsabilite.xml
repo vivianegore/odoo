@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_sinistre_responsabilite_list" model="ir.ui.view">
+        <field name="name">assurance.sinistre.responsabilite.list </field>
+        <field name="model">sinistre.entreprise.responsabilite</field>
+        <field name="arch" type="xml">
+            <tree  >
+                    
+                <field name="date_fait" /> 
+                <field name="numero_police" /> 
+                
+            </tree>
+        </field>
+    </record>
+
+    <!-- modèle de la vue Form -->
+    <record id="assurance_sinistre_responsabilite_form" model="ir.ui.view">
+        <field name="name">assurance.sinistre.responsabilite.form</field>
+        <field name="model">sinistre.entreprise.responsabilite</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_traite" data-hotkey="v"
+                        string="Valider" type="object" class="btn-primary"
+                       
+                    />
+                    <button id="button_cancel" name="action_retour" string="Annuler"  class="oe_inline" type="object" attrs="{'invisible': [('state', 'not in', ['traite','rejete'])]}" /> 
+                    <button id="button_rejete" name="action_rejete" string="Rejetter"  class="oe_inline" type="object"/>   
+                    
+                    <field name="state" widget="statusbar"  statusbar_visible="cours,traite,rejete" attrs="{'required': True}" />
+                </header>
+                <sheet>
+                <!-- infos sinistre commun à toutes les déclarations -->
+                    <div >
+                        <group col="4">
+                            <field name="date_fait" class="oe_inline"/>
+                            <field name="pays_sinistre" class="oe_inline" />                     
+                            <field name="localite_sinistre" class="oe_inline" /> 
+                            <field name="description_sinistre" placeholder="Vous êtes éventuellement en possession de photos relatives au dommage. Veuillez les conserver, elles pourront être utilisées par la suite." class="oe_inline" />                
+                        </group><br/>
+                    </div>
+
+                <!-- Formulaire pour les déclarations de sinistre entreprise  : responsabilite-->
+                    <div >
+                            
+                                <group col="4">
+                                    <field name="dommage_responsabilite_cause"  class="oe_inline"/> 
+                                    <field name="description_sinistre" class="oe_inline"/> 
+                                </group>
+                                 <group col="4" attrs="{'invisible': [('dommage_responsabilite_cause', '!=', 'animal')]}" >    
+                                    <field name="animal_race"  class="oe_inline"/>
+                                    <field name="etat_animal"  class="oe_inline" widget="radio" options="{'horizontal': true}"/> 
+                                    <field name="type_blessure"  class="oe_inline"/>     
+                                </group>
+                                <group col="4" attrs="{'invisible': [('dommage_responsabilite_cause', '!=', 'personne')]}" >
+                                    <field name="etat_personne"  class="oe_inline" widget="radio" options="{'horizontal': true}"/> 
+                                    <field name="type_blessure_personne" class="oe_inline"/> 
+                                </group>
+                                <group col="4"> 
+                                    <field name="appartenance_medicale"  class="oe_inline" widget="radio" options="{'horizontal': true}"/> 
+                                    <field name="disposition"  class="oe_inline" widget="radio" options="{'horizontal': true}"/> 
+                                    <field name="raison_declaration"  class="oe_inline"/>        
+                                </group>
+                                <group col="4">
+                                    <field name="responsable_sinistre"  class="oe_inline" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="reproche"  class="oe_inline"/> 
+                                    <field name="constat"  class="oe_inline" widget="radio" options="{'horizontal': true}"/> 
+                                    <field name="auteur_constat"  class="oe_inline"/>
+                                    <field name="justification"  class="oe_inline"/>  
+                                    
+                                </group>    
+                                <group col="4">
+                                    <field name="cas"  class="oe_inline"/>   
+                                    <field name="responsable_dommage"  class="oe_inline"/> 
+                                    <field name="nom_responsable_dommage" attrs="{'invisible': [('responsable_dommage', '!=', 'autre')]}" class="oe_inline"/> 
+                                    <field name="pnom_responsable_dommage" attrs="{'invisible': [('responsable_dommage', '!=', 'autre')]}" class="oe_inline"/> 
+                                    <field name="telephone_responsable_dommage" attrs="{'invisible': [('responsable_dommage', '!=', 'autre')]}" class="oe_inline"/> 
+                                    <field name="fonction" attrs="{'invisible': [('responsable_dommage', '!=', 'autre')]}" class="oe_inline"/>
+                                    <field name="personne" attrs="{'invisible': [('responsable_dommage', '=', 'autre')]}" class="oe_inline"/>
+                                </group>
+                    </div> 
+
+                <!-- info_preneur_assurance commun à toutes les déclarations de  sinistres-->
+                    <div >
+                            <group col="4">
+                                <field name="numero_police" class="oe_inline" />
+                                <field name="preneur"  widget="radio"   options="{'horizontal': true}" class="oe_inline"/> 
+                                <field name="presentation_personne"  attrs="{'invisible': [('preneur', '=', 'oui')]}" class="oe_inline"/> 
+                            </group >
+                            <group col="4">
+                                <field name="name" attrs="{'invisible': [('presentation_personne', '!=', 'conseiller')]}"  class="oe_inline"/>
+                                <field name="pname" attrs="{'invisible': [('presentation_personne', '!=', 'conseiller')]}"  class="oe_inline"/> 
+                                <field name="entreprise" attrs="{'invisible': [('presentation_personne', '!=', 'conseiller')]}"  class="oe_inline"/> 
+                            </group >
+                            <group col="4">  
+                                <field name="civilite" attrs="{'invisible': [('presentation_personne', '!=', 'autre')]}" class="oe_inline"/>   
+                                <field name="name" attrs="{'invisible': [('presentation_personne', '!=', 'autre')]}"  class="oe_inline"/>
+                                <field name="pname" attrs="{'invisible': [('presentation_personne', '!=', 'autre')]}" class="oe_inline"/> 
+                                <field name="email" attrs="{'invisible': [('presentation_personne', '!=', 'autre')]}"  class="oe_inline"/>  
+                                <field name="npa_preneur"  attrs="{'invisible': [('presentation_personne', '!=', 'autre')]}" class="oe_inline"/>
+                                <field name="telephone"  attrs="{'invisible': [('presentation_personne', '!=', 'autre')]}" class="oe_inline"/>
+                            </group>
+                            <!-- infos preneur si oui -->
+                            <group col="4">  
+                                    <field name="formule_appel" attrs="{'invisible': [('preneur', '!=', 'oui')]}" class="oe_inline"/>   
+                            </group >  
+                            <group col="4">  
+                                    <field name="name" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '=', 'entreprise')]}"  class="oe_inline"/>
+                                    <field name="pname" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '=', 'entreprise')]}"  class="oe_inline"/> 
+                                    <field name="email" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '=', 'entreprise')]}"  class="oe_inline"/>  
+                                    <field name="npa_preneur"  attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '=', 'entreprise')]}" class="oe_inline"/>
+                                    <field name="telephone"  attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '=', 'entreprise')]}" class="oe_inline"/>
+                            </group>
+                            <group col="4">  
+                                    <field name="entreprise" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>   
+                                    <field name="localite_societe" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/> 
+                                    <field name="email_societe" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}"  class="oe_inline"/>  
+                                    <field name="npa_societe"  attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>
+                                    <field name="telephone_societe"  attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>
+                            </group>
+                            <group col="4" >  
+                                    <field name="civilite" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>   
+                                    <field name="name_personne_contact" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}"  class="oe_inline"/>
+                                    <field name="pname_personne_contact" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/> 
+                                    <field name="email_personne_contact" attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}"  class="oe_inline"/>  
+                                    <field name="npa_personne_contact"  attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>
+                                    <field name="telephone_personne_contact"  attrs="{'invisible': ['|',('preneur', '!=', 'oui'),('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>
+                            </group>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <!-- <field name="activity_ids"/>  -->
+                    <field name="message_ids"/>
+                </div> 
+            </form>
+        </field>
+    </record> 
+
+</odoo>

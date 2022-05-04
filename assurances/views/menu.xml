@@ -133,19 +133,186 @@
       /> 
 
 
-  <!--Gestion des sinistres-->
-    <!-- action  pour les modèles de gestion des sinistres-->
-      <record id="action_assurance_sinistre" model="ir.actions.act_window">
-        <field name="name">Gestion des sinistres</field>
+  <!--Déclaration des sinistres-->
+    <!-- action  pour les modèles de déclaration des sinistres--> -->
+       <record id="action_assurance_sinistre_entreprise_automobile" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres </field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">assurfaz.sinistre</field>
+        <field name="res_model">sinistre.entreprise.automobile</field>
         <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
       </record>
-    <!-- menu  pour les modèles de gestion des sinistres -->
+      <record id="action_assurance_sinistre_entreprise_responsabilite" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.entreprise.responsabilite</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+              bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      <record id="action_assurance_sinistre_entreprise_technique" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres  </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.entreprise.technique</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+              bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      
+       <record id="action_assurance_sinistre_entreprise_autre" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.entreprise.autre</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+              bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+
+      
+      
+      
+      
+      
+      <record id="action_assurance_sinistre_particulier_responsabilite" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres responsabilite civile pour les particuliers </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.particulier.responsabilite</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      
+      <record id="action_assurance_sinistre_particulier_accident" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.particulier.accident</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      
+      <record id="action_assurance_sinistre_particulier_paiement" model="ir.actions.act_window">
+        <field name="name">Déclaration des sinistres </field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sinistre.particulier.paiement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+             bienvenue! Déclarez ici votre premier sinistre !
+          </p>
+        </field>
+      </record>
+      
+      
+      
+       
+      
+
+    <!-- menu  pour les modèles de déclaration des sinistres -->
     <menuitem id="smenu_assurance_sinistre" name="Sinistres" parent="menu_principal_assurfaz"  sequence="3"/>
 
-    <!-- menu  pour les modèles de gestion des sinistres -->
-    <menuitem id="smenu_assurance_sinistre_sous" name="Sinistres" parent="smenu_assurance_sinistre" action ="action_assurance_sinistre" />
+    <!-- menu  pour les modèles de déclaration des sinistres -->
+    <menuitem id="smenu_assurance_sinistre_entreprise" name="Clients Entreprise"   parent="assurances.smenu_assurance_sinistre"/>
+    <menuitem id="smenu_assurance_sinistre_particulier" name="Clients Particulier"   parent="assurances.smenu_assurance_sinistre"/>
+    
+    <!-- Sous menu client entreprise -->
+        <menuitem id="smenu_assurance_sinistre_entreprise_automobile" name="Assurance automobile" 
+          action="action_assurance_sinistre_entreprise_automobile" sequence="1"
+          parent="assurances.smenu_assurance_sinistre_entreprise"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_entreprise_responsabilite" name="Responsabilité civile d’entreprise / responsabilité civile professionnelle" 
+          action="action_assurance_sinistre_entreprise_responsabilite"
+          parent="assurances.smenu_assurance_sinistre_entreprise"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_entreprise_technique" name="Assurance technique" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances.smenu_assurance_sinistre_entreprise"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_entreprise_chose" name="Assurance de choses" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances.smenu_assurance_sinistre_entreprise"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_entreprise_autre" name="Autres sinistres" 
+          action="action_assurance_sinistre_entreprise_autre"
+          parent="assurances.smenu_assurance_sinistre_entreprise"
+            
+        />
+
+      <!-- Sous menu client particulier -->
+        <menuitem id="smenu_assurance_sinistre_particulier_voiture" name="Voiture" 
+          action="action_assurance_sinistre_entreprise_automobile"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        
+        <menuitem id="smenu_assurance_sinistre_particulier_responsabilite" name="Responsabilité civile privée / Dommage locataire" 
+          action="action_assurance_sinistre_particulier_responsabilite"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_batiment" name="Bâtiment" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_accident" name="Accident" 
+          action="action_assurance_sinistre_particulier_accident"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_construction" name="Construction" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_moto" name="Moto" 
+          action="action_assurance_sinistre_entreprise_automobile"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_garantie" name="Garantie de loyer" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_objet" name="Objets de valeur" 
+          action="action_assurance_sinistre_entreprise_technique"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_paiement" name="Protection des paiements" 
+          action="action_assurance_sinistre_particulier_paiement"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
+        <menuitem id="smenu_assurance_sinistre_particulier_autre_sinistre" name="Autres sinistres" 
+          action="action_assurance_sinistre_entreprise_autre"
+          parent="assurances.smenu_assurance_sinistre_particulier"
+            
+        /> 
 
 
 

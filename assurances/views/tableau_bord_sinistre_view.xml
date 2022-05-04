@@ -5,7 +5,7 @@
      <!--Tableau de bord : graph-->
     <record id="graph_sinistre_view" model="ir.ui.view">
         <field name="name">Sinistres graphique</field>
-        <field name="model">assurfaz.sinistre</field>
+        <field name="model">sinistre.entreprise.automobile</field>
         <field name="type">graph</field>
         <field name="arch" type="xml">
             <graph string="Enregistrements des sinistres" type="pie" sample="1">
@@ -18,7 +18,7 @@
     <!--L'Action du tableau de bord : graph-->
     <record id="sinistre_action_graph_view" model="ir.actions.act_window">
         <field name="name">Sinistres graphique</field>
-        <field name="res_model">assurfaz.sinistre</field>
+        <field name="res_model">sinistre.entreprise.automobile</field>
         <field name="view_mode">graph</field>
         <field name="view_id" ref="graph_sinistre_view"/>
     </record>
@@ -31,9 +31,9 @@
             <form string="Tableau de bord">
                 <board style="3-1">
                     <column>
-                        <action string="Sinistres" name="%(action_assurance_sinistre)d"/>
+                        <action string="Sinistres" name="%(action_assurance_sinistre_entreprise_automobile)d"/>
                     </column>
-                     <column>
+                    <column>
                         <action string="Vue graphique" name="%(graph_sinistre_view)d"/>
                     </column>
                 </board>

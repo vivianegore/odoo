@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- modèle de la vue list-->
+    <record id="assurance_sinistre_paiement_list" model="ir.ui.view">
+        <field name="name">assurance.sinistre.paiement.list </field>
+        <field name="model">sinistre.particulier.paiement</field>
+        <field name="arch" type="xml">
+            <tree  >
+                    
+                 
+                <field name="numero_police" /> 
+                
+            </tree>
+        </field>
+    </record>
+
+    <!-- modèle de la vue Form -->
+    <record id="assurance_sinistre_paiement_form" model="ir.ui.view">
+        <field name="name">assurance.sinistre.paiement.form</field>
+        <field name="model">sinistre.particulier.paiement</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_traite" data-hotkey="v"
+                        string="Valider" type="object" class="btn-primary"
+                       
+                    />
+                    <button id="button_cancel" name="action_retour" string="Annuler"  class="oe_inline" type="object" attrs="{'invisible': [('state', 'not in', ['traite','rejete'])]}" /> 
+                    <button id="button_rejete" name="action_rejete" string="Rejetter"  class="oe_inline" type="object"/>   
+                    
+                    <field name="state" widget="statusbar"  statusbar_visible="cours,traite,rejete" attrs="{'required': True}" />
+                </header>
+                <sheet>
+                    <!-- Formulaire pour les déclarations de sinistre  particulier : paiement-->
+                    <div > 
+                        <group col="4"> 
+                            <field name="evenement" class="oe_inline" />
+                        </group> 
+                        <group col="4" attrs="{'invisible': [('evenement', 'not in', ['accident','maladie'])]}"> 
+                            <field name="date_debut" class="oe_inline" />
+                            <field name="degre_incapacite" class="oe_inline" />
+                            <field name="nom_employeur" class="oe_inline" />
+                            <field name="localite_employeur" class="oe_inline" />
+                            <field name="telephone_employeur" class="oe_inline" />
+                            <field name="date_embauche" class="oe_inline" />
+                            <field name="time_travail" class="oe_inline" />
+                            <field name="date_traitement_medical" class="oe_inline" />
+                            <field name="specialiste" class="oe_inline" />
+                            <field name="nom_medecin_traitant" class="oe_inline" />
+                            <field name="localite_medecin_traitant" class="oe_inline" />
+                            <field name="numero_medecin_traitant" class="oe_inline" />
+
+                            <field name="question_medecin_traitant" class="oe_inline"  widget="radio"   options="{'horizontal': true}"/>
+                            <field name="info_medecin_traitant" class="oe_inline"  attrs="{'invisible': [('question_medecin_traitant', '!=', 'non')]}"/>
+                            <field name="question_info_maladie" class="oe_inline" attrs="{'invisible': [('question_medecin_traitant', '!=', 'non')]}"  widget="radio"   options="{'horizontal': true}"/>
+                       
+                            <field name="date_debut_maladie" class="oe_inline" attrs="{'invisible': [('question_info_maladie', '!=', 'non')]}" />
+                            <field name="description_maladie" class="oe_inline"  attrs="{'invisible': [('question_info_maladie', '!=', 'non')]}"/>
+                            <field name="question_info_trouble" class="oe_inline" attrs="{'invisible': [('question_info_maladie', '!=', 'non')]}" widget="radio"   options="{'horizontal': true}" />
+                        </group>
+                        <group col="4" attrs="{'invisible': [('evenement', '!=', 'accident')]}" > 
+                            <field name="date_accident" class="oe_inline" />
+                            <field name="heure_approximative" class="oe_inline" />
+                            <field name="lieu_accident" class="oe_inline" />
+                            <field name="description_accident" class="oe_inline" />
+                            <field name="nom_assurance" class="oe_inline" />
+                            <field name="numero_police_assurance" class="oe_inline" />
+
+                            <field name="question_info_assurance" class="oe_inline"  widget="radio"   options="{'horizontal': true}"/>
+                            <field name="numero_reference" class="oe_inline"  attrs="{'invisible': [('question_info_assurance', '!=', 'non')]}"/>
+                            <field name="question_info_rapport" class="oe_inline"  attrs="{'invisible': [('question_info_assurance', '!=', 'non')]}" widget="radio"   options="{'horizontal': true}"/>
+
+                            <field name="service_competent" class="oe_inline" attrs="{'invisible': [('question_info_rapport', '!=', 'non')]}" />
+                        </group>
+                        <group col="4" attrs="{'invisible': [('evenement', '!=', 'maladie')]}"> 
+                            <field name="description_maladie" class="oe_inline" />
+
+                            <field name="question_assurance_maladie" class="oe_inline"  widget="radio"   options="{'horizontal': true}"/>
+                            <field name="nom_assurance_maladie" class="oe_inline" attrs="{'invisible': [('question_assurance_maladie', '!=', 'non')]}"  />
+                            <field name="police_numero_maladie" class="oe_inline" attrs="{'invisible': [('question_assurance_maladie', '!=', 'non')]}"  />
+                            <field name="reference_cas" class="oe_inline"  attrs="{'invisible': [('question_assurance_maladie', '!=', 'non')]}" />
+                        </group>
+                        <group col="4" attrs="{'invisible': [('evenement', '!=', 'chomage')]}"> 
+                            <field name="date_fin" class="oe_inline" />
+                            <field name="nom_employeur" class="oe_inline" string="Où travailliez-vous avant d’être au chômage?" />
+                            <field name="localite_employeur" class="oe_inline" />
+                            <field name="telephone_employeur" class="oe_inline" />
+                            <field name="fin_rapport_travail" class="oe_inline"  widget="radio"   options="{'horizontal': true}"/>
+                            <field name="date_licenciement" class="oe_inline" />
+
+                            <field name="cause_licenciement" class="oe_inline"  attrs="{'invisible': [('fin_rapport_travail', '!=', 'employeur')]}"/>
+                            <field name="question_licenciement" class="oe_inline"  attrs="{'invisible': [('fin_rapport_travail', '!=', 'employeur')]}" widget="radio"   options="{'horizontal': true}"/>
+
+                            <field name="contrat_type" class="oe_inline" />
+                            <field name="question_chomage" class="oe_inline"  widget="radio"   options="{'horizontal': true}"/>
+                            <field name="temps_moyen" class="oe_inline" />
+                            <field name="question_indemnite" class="oe_inline"  widget="radio"   options="{'horizontal': true}"/>
+
+                            <field name="question_cas_signale" class="oe_inline" attrs="{'invisible': [('question_indemnite', '!=', 'non')]}" widget="radio"   options="{'horizontal': true}"/>
+
+                            <field name="question_suspension" class="oe_inline" attrs="{'invisible': [('question_cas_signale', '!=', 'non')]}" widget="radio"   options="{'horizontal': true}"/>
+                            <field name="orp" class="oe_inline" attrs="{'invisible': [('question_cas_signale', '!=', 'non')]}"/>
+                        </group>
+                        <group col="4"> 
+                            <!-- <field name="document" filename="nom_document" widget="download_link" class="oe_inline" />
+                            <field name="nom_document" invisible="1" class="oe_inline" /> -->
+                            <field name="preneur" class="oe_inline" />
+                            
+                        </group>
+                               
+                    </div>  
+
+                    
+
+                   <!-- info_preneur_assurance pour les déclarations de  sinistres paiement , ménage-->
+                        <div >
+                            <group col="4"> 
+                                    <field name="numero_police" class="oe_inline" /> 
+                                    <field name="formule_appel"  class="oe_inline"/>   
+                            </group >  
+                            <group col="4">  
+                                    <field name="name" attrs="{'invisible': [('formule_appel', '=', 'entreprise')]}" class="oe_inline"/>
+                                    <field name="pname" attrs="{'invisible': [('formule_appel', '=', 'entreprise')]}"  class="oe_inline"/> 
+                                    <field name="email" attrs="{'invisible': [('formule_appel', '=', 'entreprise')]}" class="oe_inline"/>  
+                                    <field name="npa_preneur"  attrs="{'invisible': [('formule_appel', '=', 'entreprise')]}" class="oe_inline"/>
+                                    <field name="telephone"  attrs="{'invisible': [('formule_appel', '=', 'entreprise')]}" class="oe_inline"/>
+                            </group>
+                            <group col="4">  
+                                    <field name="entreprise" attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>   
+                                    <field name="localite_societe" attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}"  class="oe_inline"/> 
+                                    <field name="email_societe" attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>  
+                                    <field name="npa_societe"  attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>
+                                    <field name="telephone_societe"  attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>
+                            </group>
+                            <group col="4" >  
+                                    <field name="civilite" attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>   
+                                    <field name="name_personne_contact" attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}"  class="oe_inline"/>
+                                    <field name="pname_personne_contact" attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}"  class="oe_inline"/> 
+                                    <field name="email_personne_contact" attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}"  class="oe_inline"/>  
+                                    <field name="npa_personne_contact"  attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>
+                                    <field name="telephone_personne_contact"  attrs="{'invisible': [('formule_appel', '!=', 'entreprise')]}" class="oe_inline"/>
+                            </group>
+                            <group col="4"> 
+                                <field name="coordonnee_paiement" class="oe_inline"  />
+                                <field name="nom_titulaire_compte" class="oe_inline" />
+                                <field name="localite_titulaire_compte" class="oe_inline" />
+                                <field name="divers" class="oe_inline" />
+                            </group>
+                        </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <!-- <field name="activity_ids"/>  -->
+                    <field name="message_ids"/>
+                </div> 
+            </form>
+        </field>
+    </record> 
+
+</odoo>
