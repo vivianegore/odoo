@@ -1,3 +1,4 @@
+from unittest import result
 from odoo import fields,models,api,_
 from dateutil.relativedelta import *
 import datetime
@@ -53,10 +54,14 @@ class AssuranceVoyage(models.Model):
 
     #Modalités de remboursement
     modalite_remboursement= fields.Selection([('remboursable','Remboursable'),
-        ('nonremboursable','Remboursable')],
+        ('nonremboursable',' Non Remboursable')],
         string= 'Modalités de remboursement',
         default='nonremboursable'
     )
+
+    prix_total = fields.Float("Montant total de l'assurance en CFA")
+   
+   
 
     @api.depends("date_naissance")
     def _get_passager_age(self):
@@ -89,6 +94,26 @@ class AssuranceVoyage(models.Model):
             date_depart = datetime.datetime.strptime(date_depart, "%Y-%m-%d")
             date_echeance = date_depart + relativedelta(days=self.duree_garantie) 
             self.date_echeance  = date_echeance.strftime("%Y-%m-%d")
+    
+   
+    prime_id = fields.Many2one("assurfaz.prime")
+    ref = fields.Char(default="Assurance Voyage")
+
+    
+    def action_accepte(self):
+        for rec in self:
+            rec.state = 'acceptee'
+            new_prime = self.env['assurfaz.prime'].create(
+                    {
+                        
+                        'prime': (self.prix_total * 10)/100,
+                        'reference_prime': self.ref,
+                        
+                    }
+                )
+            rec.prime_id = new_prime.id
+            return result
+   
 
     def action_valide(self):
         for rec in self:
@@ -98,10 +123,6 @@ class AssuranceVoyage(models.Model):
         for rec in self:
             rec.state = 'nouvelle'
 
-    
-    def action_accepte(self):
-        for rec in self:
-            rec.state = 'acceptee'
 
     def action_refuse(self):
         for rec in self:

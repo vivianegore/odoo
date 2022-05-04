@@ -31,12 +31,13 @@
                     <field name="state" widget="statusbar"  statusbar_visible="cours,traite,rejete" attrs="{'required': True}" />
                 </header>
                 <sheet>
-                    <group >
-                        <field name="cause_sinistre_automobile"   />  
-                    </group>
+                    <div >
+                        <group >
+                            <field name="cause_sinistre_automobile"   />  
+                        </group>
+                    </div>
                     <!-- infos sinistre commun à toutes les déclarations -->
                     <div >
-                        
                         <group col="4">
                             <field name="date_fait" class="oe_inline"/>
                             <field name="pays_sinistre" class="oe_inline" />                     
@@ -47,9 +48,8 @@
                     <!-- Formulaire de déclaration des sinistres entreprises et particuliers: automobile, voiture et moto -->
                     <div >
                             
-                            <group col="4">
-                                
-                                <field name="info"  widget="radio"  class="oe_inline"/> 
+                            <group col="4"> 
+                                <field name="info"  widget="radio"  class="oe_inline" options="{'horizontal': true}" /> 
                                 <field name="blessure_description"  class="oe_inline"/>  
                             </group>
                             <group col="4" >

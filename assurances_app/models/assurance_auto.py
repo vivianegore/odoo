@@ -1,8 +1,11 @@
+from email.policy import default
+from unittest import result
 from odoo import api,fields, models,_
+from datetime import datetime, date
 import datetime
 from dateutil.relativedelta import *
-
 from odoo.addons.mail.models import res_users
+from odoo.exceptions import UserError
 
 
 class AssuranceAuto(models.Model):
@@ -54,12 +57,30 @@ class AssuranceAuto(models.Model):
     date_effet = fields.Date("Date d'effet")
     date_echeance = fields.Date("Date d'échéance")
     nombre_vehicule = fields.Integer('Nombre de vehicule')
+    mtnt_total = fields.Float("Montant total de l'assurance en CFA")
 
     garantie_ids = fields.One2many('assurfaz.auto.garantie',"assurance_auto_id")
     vehicule_ids = fields.One2many('assurfaz.auto.vehicule',"assurance_auto_id")
-
     carte_grise = fields.Binary(string="Carte grise")
+
+    prime_id = fields.Many2one("assurfaz.prime")
+    ref = fields.Char(default="Assurance Auto")
+
     
+    def action_accepte(self):
+        for rec in self:
+            rec.state = 'acceptee'
+            new_prime = self.env['assurfaz.prime'].create(
+                    {
+                        
+                        'prime': (self.mtnt_total * 10)/100,
+                        'reference_prime': self.ref,
+                        
+                    }
+                )
+            rec.prime_id = new_prime.id
+            return result 
+
     def action_valide(self):
         for rec in self:
             rec.state = 'validee'
@@ -68,14 +89,20 @@ class AssuranceAuto(models.Model):
         for rec in self:
             rec.state = 'nouvelle'
 
-    def action_accepte(self):
-        for rec in self:
-            rec.state = 'acceptee'
 
     def action_refuse(self):
         for rec in self:
             rec.state = 'refusee' 
 
+    
+  
+               
+   
+
+
+    
+
+   
 
 
 

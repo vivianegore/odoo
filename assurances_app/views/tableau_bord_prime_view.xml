@@ -9,7 +9,7 @@
         <field name="type">graph</field>
         <field name="arch" type="xml">
             <graph string="Enregistrements des primes" type="pie" sample="1">
-                <field name="name"/>
+                <field name="date_creation"/>
             </graph>
         </field>
     </record>

@@ -11,6 +11,7 @@ class ResPartner(models.Model):
         default='potentiel'
     )
     produit_assurance_ids = fields.Many2many('assurfaz.typeassurance','typeassurance_partner_rel','partner_id','typeassurance_id')
+    
 
 
     

@@ -20,13 +20,11 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_valide" data-hotkey="v"
-                        string="Valider" type="object" class="btn-primary"
-                       
-                    />
-                    <button id="button_cancel" name="action_retour" string="Annuler" class="oe_light" type="object" attrs="{'invisible': [('state', 'not in', ['validee','acceptee','refusee'])]}"/>
-                    <button id="button_accept" name="action_accepte" string="Accepter" class="oe_light" type="object"/>   
+                    <button name="action_valide" data-hotkey="v" string="Valider" type="object" class="btn-primary" />
+                    <button id="button_cancel" name="action_retour" string="Annuler" class="oe_light" type="object" attrs="{'invisible': [('state', 'not in', ['validee','refusee'])]}"/>
+                    <button id="button_accept" name="action_accepte" string="Accepter" class="oe_light" type="object" attrs="{'invisible': [('state','=', 'acceptee')]}"/>  
                     <button id="button_refuse" name="action_refuse" string="Refuser" class="oe_light" type="object" />
+
                     <field name="state" widget="statusbar"  statusbar_visible="nouvelle,validee,acceptee,refusee" attrs="{'required': True}" />
                    
                 </header>
@@ -55,6 +53,8 @@
                                 </group>
                                 <group>
                                     <field name="date_echeance" /> 
+                                    <field name="mtnt_total" /> 
+                                    
                                 </group><br/>
                             </group>
                         </div>
@@ -65,7 +65,8 @@
                         </page> 
                         <page string="Garantie">
                             <field name="garantie_ids" required="1"/>  
-                        </page> 
+                        </page>
+                        
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">

@@ -31,9 +31,9 @@
                     <field name="state" widget="statusbar"  statusbar_visible="cours,traite,rejete" attrs="{'required': True}" />
                 </header><br/><br/>
                 <sheet>
-
+            
                     <group >
-                        <field name="dommage_responsabilite_cause"    />
+                        <field name="dommage_responsabilite_cause"/>
                     </group><br/><br/>
                 <!-- infos sinistre commun à toutes les déclarations -->
                     <div >

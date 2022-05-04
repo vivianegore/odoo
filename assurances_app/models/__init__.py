@@ -6,8 +6,7 @@ from . import garantie
 from . import assurance_auto
 from . import crm
 from . import stock
-from . import prime
-from . import sinistre
+from . import sinistre, prime
 from . import assurance_habitation
 from . import assurance_sante
 from . import assurance_voyage

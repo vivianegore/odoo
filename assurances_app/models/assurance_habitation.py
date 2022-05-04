@@ -1,10 +1,14 @@
-from odoo import fields,models
-
+from unittest import result
+from odoo import fields,models,_,api
+from odoo.exceptions import  UserError
+import datetime
+from dateutil.relativedelta import *
      
 class AssuranceHabitation(models.Model):
     _name = 'assurfaz.habitation'
     _inherit = ['mail.thread']
     _description = 'Assurance Habitation'
+    _rec_name = 'type_logement'
   
 
     name = fields.Char('Nom')
@@ -22,12 +26,12 @@ class AssuranceHabitation(models.Model):
     type_toiture= fields.Selection([('tuile','Tuile(Ardoise)'),
         ('tole','Tôle métale'),('beton','Béton'),('paille','Paille')],
         string= 'Type de toiture ',
-        default='maison'
+        default='tuile'
     )
     environnement_immediat= fields.Selection([('residentiel','Quartier résidentiel'),
         ('chantier','Chantiers à proximité'),('prochelieu','Proche Usine/Station Essence/Marché')],
         string= 'Environnement immédiat ',
-        default='maison'
+        default='chantier'
     )
     adresse = fields.Char('Adresse du logement ')
 
@@ -64,6 +68,37 @@ class AssuranceHabitation(models.Model):
     date_effet = fields.Date("Date d'effet")
     date_echeance = fields.Date("Date d'échéance")
 
+    mt_total = fields.Float("Montant total de l'assurance en CFA")
+   
+
+    
+
+    @api.onchange('duree_garantie','date_effet')
+    def onchange_date_echeance(self):
+        date_effet= str(self.date_effet)
+        if self.date_effet:
+            date_effet = datetime.datetime.strptime(date_effet, "%Y-%m-%d")
+            date_echeance = date_effet + relativedelta(months=self.duree_garantie) 
+            self.date_echeance  = date_echeance.strftime("%Y-%m-%d")
+
+    prime_id = fields.Many2one("assurfaz.prime")
+    ref = fields.Char(default="Assurance Habitation")
+
+    
+    def action_accepte(self):
+        for rec in self:
+            rec.state = 'acceptee'
+            new_prime = self.env['assurfaz.prime'].create(
+                    {
+                        
+                        'prime': (self.mt_total * 10)/100,
+                        'reference_prime': self.ref,
+                        
+                    }
+                )
+            rec.prime_id = new_prime.id
+            return result
+
     def action_valide(self):
         for rec in self:
             rec.state = 'validee'
@@ -71,10 +106,6 @@ class AssuranceHabitation(models.Model):
     def action_retour(self):
         for rec in self:
             rec.state = 'nouvelle'
-
-    def action_accepte(self):
-        for rec in self:
-            rec.state = 'acceptee'
 
     def action_refuse(self):
         for rec in self:
